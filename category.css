@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #333;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header button {
+  background: #555;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+header button:hover {
+  background: #777;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: #555;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.cart-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.products-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.product-card {
+  background: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-card button {
+  background: green;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background: darkgreen;
+}

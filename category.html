@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Category</title>
+  <link rel="stylesheet" href="category.css" />
+</head>
+<body>
+
+<header>
+  <div class="left-buttons">
+    <button onclick="goHome()">Home</button>
+    <div class="dropdown">
+      <button class="dropbtn">Products ▼</button>
+      <div class="dropdown-content">
+        <a href="category.html?cat=electronics">Electronics</a>
+        <a href="category.html?cat=clothes">Clothes</a>
+      </div>
+    </div>
+    <button onclick="goContact()">Contact</button>
+  </div>
+  <div class="cart-icon" onclick="goCart()">🛒</div>
+</header>
+
+<h1 id="category-title"></h1>
+<section class="products-section" id="products"></section>
+
+<script src="category.js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const category = urlParams.get('cat');
+  document.getElementById('category-title').textContent = category ? category.toUpperCase() : 'Products';
+  
+  loadProducts(category);
+</script>
+</body>
+</html>
