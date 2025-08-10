@@ -91,3 +91,13 @@ function goCart() {
 
 // Example call: load peanut candy category on page load
 loadProducts("peanutcandy");
+
+
+const images = document.querySelectorAll('.image-section img.slider-image');
+let currentIndex = 0;
+
+setInterval(() => {
+  images[currentIndex].classList.remove('active');
+  currentIndex = (currentIndex + 1) % images.length;
+  images[currentIndex].classList.add('active');
+}, 5000); // every 5 seconds
