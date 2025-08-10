@@ -1,9 +1,13 @@
-// Sample product data
+// Sample product data this is important don't change code just add images only (importent*****)
 const products = [
-  { id: 1, code: "0001", name: "Product A", img: "https://via.placeholder.com/20", price: 10 },
-  { id: 2, code: "0002", name: "Product B", img: "https://via.placeholder.com/20", price: 20 },
-  { id: 3, code: "0003", name: "Product C", img: "https://via.placeholder.com/20", price: 15 },
+  { id: 1, code: "0001", name: "Hair Oil 250ml", img: "images/ecofriendly-beauty-product.jpg", price: 130 },
+  { id: 2, code: "0002", name: "Hair Oil 500ml", img: "images/hair-serum-bottle-with-brown-hair.jpg", price: 180 },
+  { id: 3, code: "0003", name: "hair Oil 100ml", img: "images/front-view-oil-made-from-green-plant.jpg", price: 80 },
+  
 ];
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 const productsContainer = document.getElementById("products");
 
@@ -15,7 +19,7 @@ function loadProducts() {
     card.className = "product-card";
 
     card.innerHTML = `
-      <img src="${product.img}" alt="${product.name}" />
+      <img src="${product.img}"/><br><br>
       <div>${product.name}</div>
       <div>₹${product.price}</div>
       <button onclick="addToCart(${product.id})">Add to Cart</button>
@@ -54,3 +58,51 @@ function goCart() {
 }
 
 loadProducts();
+
+
+
+function loadProducts() {
+  productsContainer.innerHTML = "";
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    // Set inner HTML without onclick handlers on individual elements
+    card.innerHTML = `
+      <img src="${product.img}" alt="${product.name}" />
+      <div>${product.name}</div>
+      <div>₹${product.price}</div>
+      <button>Add to Cart</button>
+    `;
+
+    // Make the whole card clickable to open product detail
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => openProductDetail(product.id));
+
+    // Prevent the button click from triggering card click (so it only adds to cart)
+    const btn = card.querySelector("button");
+    btn.onclick = (event) => {
+      event.stopPropagation(); // Stop bubbling so card click doesn't happen
+      addToCart(product.id);
+    };
+
+    productsContainer.appendChild(card);
+  });
+}
+
+function openProductDetail(id) {
+  window.location.href = `productshow.html?id=${id}`;
+}
+
+
+
+//image transition 
+
+const images = document.querySelectorAll('.image-section img.slider-image');
+let currentIndex = 0;
+
+setInterval(() => {
+  images[currentIndex].classList.remove('active');
+  currentIndex = (currentIndex + 1) % images.length;
+  images[currentIndex].classList.add('active');
+}, 5000); // every 5 seconds

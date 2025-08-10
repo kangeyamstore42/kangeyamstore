@@ -8,24 +8,54 @@
 </head>
 <body>
 
-  <h1>Your Cart</h1>
+  <header>
+  <div class="left-buttons">
+    <button onclick="goHome()">Home</button>
+    <div class="dropdown">
+      <button class="dropbtn">Products ▼</button>
+      <div class="dropdown-content">
+        <a href="category.html?cat=peanutcandy">peanut candy</a>
+      <!---  <a href="category.html?cat=clothes">Clothes</a>-->
+      </div>
+    </div>
+    <button onclick="goContact()">Contact</button>
+  </div>
+<!---  <div class="cart-icon" onclick="goCart()">Cart 🛒</div>-->
+</header>
 
-  <table id="cart-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Code</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>Total</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <main>
+    <h1>Your Cart</h1>
 
-  <div id="total-price"></div>
-  <button onclick="goHome()">Continue Shopping</button>
+    <section class="cart-section">
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Name">Hair Oil 250ml</td>
+            <td data-label="Code">0001</td>
+            <td data-label="Price">₹130</td>
+            <td data-label="Qty">2</td>
+            <td data-label="Total">₹260</td>
+            <td data-label="Action"><button>Remove</button></td>
+          </tr>
+          <!-- More rows as needed -->
+        </tbody>
+      </table>
+    </section>
+
+    <div id="total-price"></div>
+
+    <button id="continue-shopping" onclick="goaddress()">Continue Shopping</button>
+  </main>
 
   <script src="cart-script.js"></script>
 </body>

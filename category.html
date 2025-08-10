@@ -14,17 +14,30 @@
     <div class="dropdown">
       <button class="dropbtn">Products ▼</button>
       <div class="dropdown-content">
-        <a href="category.html?cat=electronics">Electronics</a>
-        <a href="category.html?cat=clothes">Clothes</a>
+        <a href="category.html?cat=peanutcandy">peanut candy</a>
+      <!---  <a href="category.html?cat=clothes">Clothes</a>-->
       </div>
     </div>
     <button onclick="goContact()">Contact</button>
   </div>
-  <div class="cart-icon" onclick="goCart()">🛒</div>
+  <div class="cart-icon" onclick="goCart()">Cart 🛒</div>
+  
 </header>
+
+
+<section class="image-section">
+  <img src="images/vecteezy_a-plate-of-nuts-and-nuts-sitting-on-a-banana-leaf_53887909.jpg" alt="Main Banner" class="slider-image active" />
+  <img src="images/vecteezy_a-stack-of-peanut-brittle-on-a-wooden-table_53887958.jpg" alt="Second Banner" class="slider-image" />
+</section>
+
+
 
 <h1 id="category-title"></h1>
 <section class="products-section" id="products"></section>
+
+<section class="black-text-section">
+  
+</section>
 
 <script src="category.js"></script>
 <script>
@@ -33,6 +46,7 @@
   document.getElementById('category-title').textContent = category ? category.toUpperCase() : 'Products';
   
   loadProducts(category);
+  
 </script>
 </body>
 </html>

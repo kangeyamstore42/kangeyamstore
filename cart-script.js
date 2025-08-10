@@ -23,19 +23,19 @@ function loadCart() {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>
-        <img src="${item.img}" alt="${item.name}" 
-          style="width:40px; height:40px; object-fit:cover; margin-right:8px; vertical-align:middle;">
-        ${item.name}
-      </td>
-      <td>${item.code}</td>
-      <td>₹${item.price}</td>
+     <div class="cart-item">
+  <img src="${item.img}" class="cart-img">
+  <span class="cart-name">${item.name}</span>
+</div>
+
+      <td class="cart-code">${item.code}</td>
+      <td class="cart-price">₹${item.price}</td>
       <td>
         <button onclick="changeQty(${index}, -1)">-</button>
         <span style="margin:0 8px;">${item.qty}</span>
         <button onclick="changeQty(${index}, 1)">+</button>
       </td>
-      <td>₹${itemTotal.toFixed(2)}</td>
+      <td class="cart-total">₹${itemTotal.toFixed(2)}</td>
       <td><button onclick="removeFromCart(${index})">Remove</button></td>
     `;
     tbody.appendChild(row);
@@ -84,8 +84,30 @@ function addToCart(product) {
 }
 
 // For navigation (optional)
-function goHome() {
+function goaddress() {
   window.location.href = "address.html";
 }
 
+function goHome() {
+  window.location.href = "index.html";
+}
+
 loadCart();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

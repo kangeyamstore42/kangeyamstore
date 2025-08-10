@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Details</title>
+  <link rel="stylesheet" href="productshow.css" />
+</head>
+
+<body>
+  <header>
+    <div class="left-buttons">
+      <button onclick="goHome()">Home</button>
+      <div class="dropdown">
+        <button class="dropbtn">Products ▼</button>
+        <div class="dropdown-content">
+          <a href="category.html?cat=peanutcandy">Peanut Candy</a>
+          <!--- <a href="category.html?cat=clothes">Clothes</a> -->
+        </div>
+      </div>
+      <button onclick="goContact()">Contact</button>
+    </div>
+    <div class="cart-icon" onclick="goCart()">Cart 🛒</div>
+    
+  </header>
+
+  <br><br><br>
+
+  <div class="container">
+    <div class="image-section">
+      <img id="product-img" src="" alt="Product Image" />
+      <div class="thumbnails" id="thumbnails">
+        <!-- thumbnails inserted here by JS -->
+      </div>
+    </div>
+
+    <div class="details">
+      <h2 id="product-name">Product Name</h2>
+      <p>Price: ₹<span id="product-price"></span></p>
+      <div class="qty-selector">
+        <button onclick="changeQty(-1)">−</button>
+        <span id="qty">1</span>
+        <button onclick="changeQty(1)">+</button>
+      </div>
+
+      <div class="product-description" id="product-description">
+        <!-- Description will appear here -->
+      </div>
+
+      <button class="add-cart-btn" onclick="addToCart()">Add to Cart</button>
+    </div>
+  </div>
+
+
+  <section class="black-text-section">
+
+</section>
+
+  <script src="productshow.js"></script>
+</body>
+</html>
