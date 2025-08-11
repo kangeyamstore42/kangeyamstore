@@ -17,9 +17,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #222;
+  background: #000000;
   color: white;
-  padding: 10px 20px;
+  padding: 15px 20px;
 }
 header .left-buttons button,
 .dropbtn {
@@ -69,7 +69,7 @@ header .cart-icon {
   position: relative;
   width: 100%;
   height: 0;
-  padding-top: 30%; /* Aspect ratio: 4:1 (adjust as needed) */
+  padding-top: 28%; /* Aspect ratio: 4:1 (adjust as needed) */
   overflow: hidden;
 }
 
@@ -162,8 +162,16 @@ header .cart-icon {
     left: 0;
     right: 0;
     z-index: 9999;
-    background: #222;
+    background: #000000;
+    padding: 18px;
   }
+  .image-section {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 45%; /* Aspect ratio: 4:1 (adjust as needed) */
+  overflow: hidden;
+}
   body {
     padding-top: 60px; /* Adjust according to header height */
   }
@@ -213,9 +221,94 @@ header .cart-icon {
   width: 100%;
   background-color: black;
   color: white;
-  padding: 200px 0;
+  padding: 10px 0;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
 }
 
+.footer-logo-desc {
+  max-width: 250px;
+}
 
+.footer-logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.footer-desc {
+  line-height: 1.6;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.footer-links, .footer-policies, .footer-support, .footer-contact {
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.footer-links h4,
+.footer-policies h4,
+.footer-support h4,
+.footer-contact h4 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.footer-links ul,
+.footer-policies ul,
+.footer-support ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li,
+.footer-policies ul li,
+.footer-support ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #eee;
+}
+
+.footer-contact p {
+  line-height: 1.5;
+  font-size: 14px;
+  color: #eee;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #bbb;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-links, .footer-policies, .footer-support, .footer-contact {
+    max-width: 100%;
+    text-align: center;
+  }
+  .footer-logo-desc {
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+  }
+}

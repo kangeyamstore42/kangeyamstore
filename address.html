@@ -1,40 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Address Submission Form</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="address.css">
 </head>
-<body class="bg-light">
-  <div class="container mt-5">
-    <h4 class="mb-4 text-center">Address Submission</h4>
-    <form id="submit-to-google-sheet">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input class="form-control" type="text" id="name" name="name" placeholder="Name" required />
-      </div>
-      <div class="form-group">
-        <label for="contact_number">Contact Number:</label>
-        <input class="form-control" type="text" id="contact_number" name="contact_number" placeholder="Contact Number" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input class="form-control" type="email" id="email" name="email" placeholder="Email" required />
-      </div>
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <textarea class="form-control" id="address" name="address" placeholder="Full Address" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="pincode">Pin Code:</label>
-        <input class="form-control" type="text" id="pincode" name="pincode" placeholder="Pin Code" required />
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Submit</button>
-    </form>
-  </div>
+<body>
+  <header>
+    <h2>Kangayam Shopping</h2>
+  </header>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
-  <script src="address.js"></script>
+<div class="container">
+  <div class="checkout-container">
+    
+    <!-- Left: Address Form -->
+    <div class="form-section">
+      <h4>Contact</h4>
+      <form id="submit-to-google-sheet">
+        <div class="form-group">
+          <label>Name</label>
+          <input class="form-control" type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input class="form-control" type="text" id="contact_number" name="contact_number" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-control" type="email" id="email" name="email" required>
+        </div>
+        
+        <h4>Delivery</h4>
+        <div class="form-group">
+          <label>Address</label>
+          <textarea class="form-control" id="address" name="address" required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>City</label>
+            <input class="form-control" type="text" id="city" name="city" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label>State</label>
+            <input class="form-control" type="text" id="state" name="state" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Pin Code</label>
+          <input class="form-control" type="text" id="pincode" name="pincode" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+      </form>
+    </div>
+    
+    <!-- Right: Cart Summary -->
+    <div class="cart-summary">
+      <h5>Your Cart</h5>
+      <div id="cartItems"></div>
+      <div class="cart-total" id="cartTotal">Total: ₹0</div>
+    </div>
+    
+  </div>
+</div>
+<br>
+<br>
+
+<section class="black-text-section">
+  <div class="footer-container">
+    <div class="footer-logo-desc">
+      <img src="images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Fitobee Logo" class="footer-logo" />
+      <p class="footer-desc">
+        Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
+      </p>
+    </div>
+    <div class="footer-support">
+      <h4>For Support</h4>
+      <ul>
+        <li>📞 (+91) 8124763694</li>
+        <li>(+91) 9042635662</li>
+        <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></p></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Reach Us</h4>
+      <p>
+        <br />KANGAYAM SHOPPING,
+        265 BHARATHIYAR STREET,<br />
+        TIRUPPUR ROAD,<br />
+        KANGAYAM - 638 701.
+      </p>
+      
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
+  </div>
+</section>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+<script src="address.js"></script>
+
 </body>
 </html>
