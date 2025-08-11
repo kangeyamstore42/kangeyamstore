@@ -56,6 +56,9 @@ function goContact() {
 function goCart() {
   window.location.href = "cart.html";
 }
+function gotorderdetails() {
+  window.location.href = "getorderdetails.html";
+}
 
 loadProducts();
 
