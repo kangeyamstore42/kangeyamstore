@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Customer Lookup</title>
+  <title>Order Lookup</title>
   <style>
     /* Reset & base */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f5f7fa;
@@ -44,17 +42,6 @@
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .left-buttons button:hover {
-      background-color: #000000;
-    }
-
-    .cart-icon {
-      cursor: pointer;
-      font-size: 1.3rem;
-      user-select: none;
     }
 
     .container {
@@ -109,9 +96,7 @@
       cursor: pointer;
       transition: background-color 0.25s ease;
     }
-    button.search-btn:hover {
-      background-color: #1f6391;
-    }
+    button.search-btn:hover { background-color: #1f6391; }
 
     #result {
       margin-top: 25px;
@@ -124,127 +109,32 @@
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
     }
 
-    
+    .result p { margin: 6px 0; }
+    .label { font-weight: 700; }
 
-.black-text-section {
-  width: 100%;
-  background-color: black;
-  color: white;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 15px;
-}
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 30px;
-}
-
-.footer-logo-desc {
-  max-width: 250px;
-}
-
-.footer-logo {
-  width: 120px;
-  margin-bottom: 15px;
-}
-
-.footer-desc {
-  line-height: 1.6;
-  font-size: 14px;
-  color: #ddd;
-}
-
-.footer-links, .footer-policies, .footer-support, .footer-contact {
-  flex: 1 1 150px;
-  min-width: 150px;
-}
-
-.footer-links h4,
-.footer-policies h4,
-.footer-support h4,
-.footer-contact h4 {
-  margin-bottom: 15px;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.footer-links ul,
-.footer-policies ul,
-.footer-support ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links ul li,
-.footer-policies ul li,
-.footer-support ul li {
-  margin-bottom: 10px;
-  cursor: pointer;
-  color: #eee;
-}
-
-.footer-contact p {
-  line-height: 1.5;
-  font-size: 14px;
-  color: #eee;
-}
-
-.footer-bottom {
-  border-top: 1px solid #333;
-  margin-top: 30px;
-  padding-top: 15px;
-  text-align: center;
-  font-size: 13px;
-  color: #bbb;
-}
-
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer-links, .footer-policies, .footer-support, .footer-contact {
-    max-width: 100%;
-    text-align: center;
-  }
-  .footer-logo-desc {
-    text-align: center;
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-  .footer-bottom {
-    font-size: 12px;
-  }
-}
+    /* footer styles from original */
+    .black-text-section { width: 100%; background-color: black; color: white; padding: 10px 0; text-align: center; font-size: 15px; }
+    .footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 30px; }
+    .footer-logo-desc { max-width: 250px; }
+    .footer-logo { width: 120px; margin-bottom: 15px; }
+    .footer-desc { line-height: 1.6; font-size: 14px; color: #ddd; }
+    .footer-links, .footer-policies, .footer-support, .footer-contact { flex: 1 1 150px; min-width: 150px; }
+    .footer-links h4, .footer-policies h4, .footer-support h4, .footer-contact h4 { margin-bottom: 15px; font-weight: 600; font-size: 16px; }
+    .footer-links ul, .footer-policies ul, .footer-support ul { list-style: none; padding: 0; }
+    .footer-links ul li, .footer-policies ul li, .footer-support ul li { margin-bottom: 10px; cursor: pointer; color: #eee; }
+    .footer-contact p { line-height: 1.5; font-size: 14px; color: #eee; }
+    .footer-bottom { border-top: 1px solid #333; margin-top: 30px; padding-top: 15px; text-align: center; font-size: 13px; color: #bbb; }
 
     /* Responsive */
     @media (max-width: 480px) {
-      .container {
-        padding: 25px 20px 30px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      button.search-btn {
-        font-size: 1rem;
-      }
-      .left-buttons button {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-      }
-      .cart-icon {
-        font-size: 1.1rem;
-      }
+      .container { padding: 25px 20px 30px; }
+      h1 { font-size: 1.5rem; }
+      button.search-btn { font-size: 1rem; }
+      .left-buttons button { padding: 6px 12px; font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
-    
   <header>
     <div class="left-buttons">
       <button onclick="goHome()">Home</button>
@@ -253,122 +143,141 @@
 
   <div class="container" role="main">
     <h1>Order Details</h1>
-    <label for="identifier">Ordered Email or Phone</label>
-    <input id="identifier" type="text" placeholder="Enter Email or Phone" aria-label="Email or Phone" />
+
+    <!-- Updated: Order ID only -->
+    <label for="orderId">Order ID</label>
+    <input id="orderId" type="text" placeholder="Enter Order ID (e.g. KS1208172345)" aria-label="Order ID" />
     <button class="search-btn" onclick="lookup()">Search</button>
+
     <div id="result" aria-live="polite" aria-atomic="true"></div>
   </div>
 
   <script>
-    function goHome() {
-      // Example action: navigate to home page
-      window.location.href = 'index.html';
-    }
+    // Replace with your Apps Script web app URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMWmvdzAIuWM-x5gOL0OVyiUpSI9o6bFVHl7eLHwgfTY9fjXY4A3GUulAatyNzFpQlRQ/exec";
 
-    function goCart() {
-      // Example action: navigate to cart page
-      window.location.href = 'cart.html';
+    function goHome() {
+      window.location.href = 'index.html';
     }
 
     function formatProductDetails(productDetailsStr) {
       if (!productDetailsStr) return '<p>No product details available.</p>';
 
-      // Split on 'Product Code:' and remove empty items
-      const products = productDetailsStr.split(/Product Code:/).filter(s => s.trim() !== '');
+      // Normalize line breaks, ensure each product starts with 'Product Code:'
+      // Support product blocks either separated by newline or by "Product Code:"
+      const parts = productDetailsStr
+        .replace(/\r/g, '')
+        .split(/Product Code:/)
+        .filter(s => s.trim() !== '');
 
-      return products.map(prod => {
-        const details = '<b>Product Code: </b>' + prod.trim();
-        // Add line breaks and bold labels
-        return details
+      return parts.map(part => {
+        // the part starts with the code value (maybe with trailing newline)
+        const block = part.trim();
+        // Put back the "Product Code:" label, then bold the labels for readability
+        let html = '<strong>Product Code:</strong> ' + block;
+        html = html
           .replace(/Product Name:/g, '<br><strong>Product Name:</strong> ')
           .replace(/Price:/g, '<br><strong>Price:</strong> ')
           .replace(/Qty:/g, '<br><strong>Qty:</strong> ')
           .replace(/Total:/g, '<br><strong>Total:</strong> ');
-      }).map(item => `<div style="margin-bottom:15px; padding-left:10px; border-left: 3px solid #2980b9;">${item}</div>`).join('');
+        return `<div style="margin-bottom:15px; padding-left:10px; border-left: 3px solid #2980b9;">${html}</div>`;
+      }).join('');
     }
 
     function lookup() {
-      const identifier = document.getElementById('identifier').value.trim();
+      const orderId = document.getElementById('orderId').value.trim();
       const resultEl = document.getElementById('result');
-      resultEl.textContent = '';
+      resultEl.innerHTML = '';
 
-      if (!identifier) {
-        alert("Please enter an email or phone number.");
+      if (!orderId) {
+        alert("Please enter an Order ID.");
         return;
       }
 
-      const url = `https://script.google.com/macros/s/AKfycbz4FtbcqpBHrU4zttso5ZnYiNek7bPgorTrhz28TqvDlw0f5vBQ7GwoJ4N2kK01p-9ePw/exec?identifier=${encodeURIComponent(identifier)}`;
-
       resultEl.textContent = 'Searching...';
 
+      // call your Apps Script with orderID parameter (doGet expects orderID)
+      const url = `${SCRIPT_URL}?orderID=${encodeURIComponent(orderId)}`;
+
       fetch(url)
-        .then(response => response.json())
+        .then(resp => resp.json())
         .then(data => {
+          resultEl.innerHTML = ''; // clear searching...
           if (!data || Object.keys(data).length === 0) {
-            resultEl.textContent = "Customer not found.";
+            resultEl.textContent = "Order not found.";
             return;
           }
-
           if (data.error) {
             resultEl.textContent = data.error;
             return;
           }
 
-          // Show data formatted nicely
+          // display with labels bold and values normal
           resultEl.innerHTML = `
-            <p><strong>Name:</strong> ${data.name}</p>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Phone:</strong> ${data.contact_number}</p>
-            <p><strong>To Address:</strong> ${data.address}</p>
-            <p><strong>Product Details:</strong></p>
-            <div>${formatProductDetails(data.product_details)}</div>
-            <p><strong>${data.grand_total}</strong></p>
+            <p><span class="label">Order ID:</span> ${escapeHtml(data.order_id || '')}</p>
+            <p><span class="label">Name:</span> ${escapeHtml(data.name || '')}</p>
+            <p><span class="label">Address:</span> ${escapeHtml(data.address || '')}</p>
+            <p><span class="label">Product Details:</span></p>
+            <div>${formatProductDetails(data.product_details || '')}</div>
+            <p><span class="label">Total:</span> ${escapeHtml(data.grand_total || '')}</p>
           `;
         })
         .catch(err => {
-          resultEl.textContent = "Error: " + err.message;
+          console.error(err);
+          resultEl.textContent = "Error fetching order details. See console for details.";
         });
     }
-  </script>
-  <section class="black-text-section">
-  <div class="footer-container">
-    <div class="footer-logo-desc">
-      <img src="images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Fitobee Logo" class="footer-logo" />
-      <p class="footer-desc">
-        Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
-      </p>
-    </div>
-    <div class="footer-contact">
-      
-  <h4>Let Us Help</h4>
-  <div style="margin-right: 50px;"> <!-- moves right by 50px -->
-  <ul>
-    <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li>
-  </ul>
-</div>
 
+    // small helper to avoid HTML injection if sheet contains weird chars
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+
+  <section class="black-text-section">
+    <div class="footer-container">
+      <div class="footer-logo-desc">
+        <img src="images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Logo" class="footer-logo" />
+        <p class="footer-desc">
+          Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Let Us Help</h4>
+        <ul>
+          <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-support">
+        <h4>For Support</h4>
+        <ul>
+          <li>📞 (+91) 8124763694</li>
+          <li>(+91) 9042635662</li>
+          <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Reach Us</h4>
+        <p>
+          KANGAYAM SHOPPING,<br>
+          265 BHARATHIYAR STREET,<br>
+          TIRUPPUR ROAD,<br>
+          KANGAYAM - 638 701.
+        </p>
+      </div>
     </div>
-    <div class="footer-support">
-      <h4>For Support</h4>
-      <ul>
-        <li>📞 (+91) 8124763694</li>
-        <li>(+91) 9042635662</li>
-        <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></p></li>
-      </ul>
+
+    <div class="footer-bottom">
+      © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
     </div>
-    <div class="footer-contact">
-      <h4>Reach Us</h4>
-      <p>
-        <br />KANGAYAM SHOPPING,
-        265 BHARATHIYAR STREET,<br />
-        TIRUPPUR ROAD,<br />
-        KANGAYAM - 638 701.
-      </p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
-  </div>
-</section>
+  </section>
 </body>
 </html>

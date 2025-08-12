@@ -26,7 +26,7 @@ document.getElementById("cartTotal").innerText = `Total: ₹${total.toFixed(2)}`
 // =======================
 // Form Handling
 // =======================
-const scriptURL = "https://script.google.com/macros/s/AKfycbxRJYqvgUfS6OWc-109azm1ca45lO5gsZvgWWmHMON9zea3OJ4YlanMG0RSfk9wAg6BwA/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxNuqJkL9i7UR7rIKfDDGMNoFG4j8_sSgzJ58CAzakEn1UD7g8RKXuzXRIe8TNn2xTp6g/exec";
 const form = document.getElementById("submit-to-google-sheet");
 
 // Load saved form data from localStorage
@@ -93,15 +93,25 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
 
   const dateAndTime = new Date().toLocaleString();
 
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+
+  const orderId = `KS${day}${month}${hours}${minutes}${seconds}`;
+
   try {
     const formData = new FormData();
+    formData.append("order_id", orderId);
     formData.append("name", saveObj.name);
     formData.append("email", saveObj.email);
     formData.append("contact_number", saveObj.contact_number);
     formData.append("address", fullAddress);
-    formData.append("city", saveObj.city);
-    formData.append("state", saveObj.state);
-    formData.append("pincode", saveObj.pincode);
+   // formData.append("city", saveObj.city);
+   // formData.append("state", saveObj.state);
+   // formData.append("pincode", saveObj.pincode);
     formData.append("product_details", productDetailsStr);
     formData.append("grand_total", `Grand Total: ₹${total.toFixed(2)}`);
     formData.append("dateAndTime", dateAndTime);
@@ -109,7 +119,8 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
     await fetch(scriptURL, { method: "POST", body: formData });
 
     swal.close();
-    swal("Done", "Order Submitted Successfully!", "success");
+    //swal("Done", "Order Submitted Successfully!", "success");
+    swal("Done", `Order Submitted Successfully!\nYour Order ID: ${orderId}`, "success");
     //localStorage.removeItem("cart");
 
   } catch (error) {
