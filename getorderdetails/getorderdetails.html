@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order Details</title>
+<link rel="icon" type="image/png" href="../images/20250814_2110_Bull Face Letters_simple_compose_01k2mks4kqecvb66bc11ejds2b.png">
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    header {
+      width: 100%;
+      background-color: #000; /* black background */
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .left-buttons button {
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .container {
+      background: white;
+      max-width: 820px;
+      width: 90%;
+      margin: 40px 0;
+      padding: 30px 30px 40px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #34495e;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #2980b9;
+      outline: none;
+      box-shadow: 0 0 6px rgba(41, 128, 185, 0.5);
+    }
+
+    button.search-btn {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #2980b9;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 14px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+    }
+    button.search-btn:hover { background-color: #1f6391; }
+
+    #result {
+      margin-top: 25px;
+      background: #ecf0f1;
+      border-radius: 8px;
+      padding: 20px;
+      white-space: normal;
+      color: #2c3e50;
+      min-height: 80px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .result p { margin: 6px 0; }
+    .label { font-weight: 700; }
+
+    /* footer styles from original */
+    .black-text-section { width: 100%; background-color: black; color: white; padding: 10px 0; text-align: center; font-size: 15px; }
+    .footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 30px; }
+    .footer-logo-desc { max-width: 250px; }
+    .footer-logo { width: 120px; margin-bottom: 15px; }
+    .footer-desc { line-height: 1.6; font-size: 14px; color: #ddd; }
+    .footer-links, .footer-policies, .footer-support, .footer-contact { flex: 1 1 150px; min-width: 150px; }
+    .footer-links h4, .footer-policies h4, .footer-support h4, .footer-contact h4 { margin-bottom: 15px; font-weight: 600; font-size: 16px; }
+    .footer-links ul, .footer-policies ul, .footer-support ul { list-style: none; padding: 0; }
+    .footer-links ul li, .footer-policies ul li, .footer-support ul li { margin-bottom: 10px; cursor: pointer; color: #eee; }
+    .footer-contact p { line-height: 1.5; font-size: 14px; color: #eee; }
+    .footer-bottom { border-top: 1px solid #333; margin-top: 30px; padding-top: 15px; text-align: center; font-size: 13px; color: #bbb; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container { padding: 25px 20px 30px; }
+      h1 { font-size: 1.5rem; }
+      button.search-btn { font-size: 1rem; }
+      .left-buttons button { padding: 6px 12px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left-buttons">
+      <button onclick="goHome()">Home</button>
+    </div>
+  </header>
+
+  <div class="container" role="main">
+    <h1>Order Details</h1>
+
+    <!-- Updated: Order ID only -->
+    <label for="orderId">Order ID</label>
+    <input id="orderId" type="text" placeholder="Enter Order ID (e.g. KS1208172345)" aria-label="Order ID" />
+    <button class="search-btn" onclick="lookup()">Search</button>
+
+    <div id="result" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <script>
+    // Replace with your Apps Script web app URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMWmvdzAIuWM-x5gOL0OVyiUpSI9o6bFVHl7eLHwgfTY9fjXY4A3GUulAatyNzFpQlRQ/exec";
+
+    function goHome() {
+      window.location.href = '/index.html';
+    }
+
+    function formatProductDetails(productDetailsStr) {
+      if (!productDetailsStr) return '<p>No product details available.</p>';
+
+      // Normalize line breaks, ensure each product starts with 'Product Code:'
+      // Support product blocks either separated by newline or by "Product Code:"
+      const parts = productDetailsStr
+        .replace(/\r/g, '')
+        .split(/Product Code:/)
+        .filter(s => s.trim() !== '');
+
+      return parts.map(part => {
+        // the part starts with the code value (maybe with trailing newline)
+        const block = part.trim();
+        // Put back the "Product Code:" label, then bold the labels for readability
+        let html = '<strong>Product Code:</strong> ' + block;
+        html = html
+          .replace(/Product Name:/g, '<br><strong>Product Name:</strong> ')
+          .replace(/Price:/g, '<br><strong>Price:</strong> ')
+          .replace(/Qty:/g, '<br><strong>Qty:</strong> ')
+          .replace(/Total:/g, '<br><strong>Total:</strong> ');
+        return `<div style="margin-bottom:15px; padding-left:10px; border-left: 3px solid #2980b9;">${html}</div>`;
+      }).join('');
+    }
+
+    function lookup() {
+      const orderId = document.getElementById('orderId').value.trim();
+      const resultEl = document.getElementById('result');
+      resultEl.innerHTML = '';
+
+      if (!orderId) {
+        alert("Please enter an Order ID.");
+        return;
+      }
+
+      resultEl.textContent = 'Searching...';
+
+      // call your Apps Script with orderID parameter (doGet expects orderID)
+      const url = `${SCRIPT_URL}?orderID=${encodeURIComponent(orderId)}`;
+
+      fetch(url)
+        .then(resp => resp.json())
+        .then(data => {
+          resultEl.innerHTML = ''; // clear searching...
+          if (!data || Object.keys(data).length === 0) {
+            resultEl.textContent = "Order not found.";
+            return;
+          }
+          if (data.error) {
+            resultEl.textContent = data.error;
+            return;
+          }
+
+          // display with labels bold and values normal
+          resultEl.innerHTML = `
+            <p><span class="label">Order ID:</span> ${escapeHtml(data.order_id || '')}</p>
+            <p><span class="label">Name:</span> ${escapeHtml(data.name || '')}</p>
+            <p><span class="label">Address:</span> ${escapeHtml(data.address || '')}</p>
+            <p><span class="label">Product Details:</span></p>
+            <div>${formatProductDetails(data.product_details || '')}</div>
+            <p><span class="label">Total:</span> ${escapeHtml(data.grand_total || '')}</p>
+          `;
+        })
+        .catch(err => {
+          console.error(err);
+          resultEl.textContent = "Error fetching order details. See console for details.";
+        });
+    }
+
+    // small helper to avoid HTML injection if sheet contains weird chars
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+
+  <section class="black-text-section">
+    <div class="footer-container">
+      <div class="footer-logo-desc">
+        <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Logo" class="footer-logo" />
+        <p class="footer-desc">
+          Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Let Us Help</h4>
+        <ul>
+          <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-support">
+        <h4>For Support</h4>
+        <ul>
+          <li>📞 (+91) 8124763694</li>
+          <li>(+91) 9042635662</li>
+          <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Reach Us</h4>
+        <p>
+          KANGAYAM SHOPPING,<br>
+          265 BHARATHIYAR STREET,<br>
+          TIRUPPUR ROAD,<br>
+          KANGAYAM - 638 701.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
+    </div>
+  </section>
+</body>
+</html>

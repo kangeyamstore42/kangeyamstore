@@ -4,15 +4,64 @@ body {
 }
 
 header {
-  background-color: #000;  /* black background */
-  color: #fff;             /* white text */
-  text-align: center;      /* center the text */
-  padding: 15px 0;         /* vertical padding */
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000000;
+  color: rgb(0, 0, 0);
+  padding: 15px 20px;
+}
+/* Left buttons container */
+.left-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
+/* Buttons and dropdown button */
+button, .dropbtn {
+  background: none;
+  border: 1.5px solid #000;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+button:hover, .dropbtn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+#category-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(230, 227, 227);
+  padding: 0px;
+  gap: 4px;
+}
+
+.footer-logo {
+  max-width: 50px; /* max size */
+  width: auto;      /* adjust with screen */
+  height: auto;
+}
+@media screen and (max-width: 600px) {
+  #category-title {
+    flex-direction: row; /* keep same line */
+    gap: 5px;
+    font-size: 18px;
+    padding: 0px;
+  }
+
+  .footer-logo {
+    width: 30px;
+  }
+}
 
 .checkout-container {
   display: flex;
@@ -75,6 +124,18 @@ header {
 
 
 
+.prepaid-notice {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ffeeba;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 
 

@@ -1,0 +1,365 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  padding: 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000000;
+  color: white;
+  padding: 15px 20px;
+}
+header .left-buttons button,
+.dropbtn {
+  margin-right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+header .cart-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
+
+#cart-count {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: pink;
+  color: purple;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+#category-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(230, 227, 227);
+  padding: 0px;
+  gap: 4px;
+}
+
+.footer-logo {
+  max-width: 50px; /* max size */
+  width: auto;      /* adjust with screen */
+  height: auto;
+}
+@media screen and (max-width: 600px) {
+  #category-title {
+    flex-direction: row; /* keep same line */
+    gap: 5px;
+    font-size: 18px;
+    padding: 0px;
+  }
+
+  .footer-logo {
+    width: 30px;
+  }
+}
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  z-index: 1;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+}
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Banner */
+
+
+
+.image-section {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 30%; /* Aspect ratio: 4:1 (adjust as needed) */
+  overflow: hidden;
+}
+
+.image-section img.slider-image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.image-section img.slider-image.active {
+  opacity: 1;
+  position: absolute;
+}
+
+
+
+/* Product List */
+.products-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 50px;
+  justify-content: center;
+}
+.product-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.product-card:hover {
+  transform: scale(1.05);
+}
+.product-card img {
+  width: 100%;       /* Make image take full width of container */
+  height: 250px;     /* Fixed height you want */
+  object-fit: contain;  /* Keep aspect ratio and fit inside */
+  display: block;    /* Remove inline spacing */
+  margin: 0 auto;    /* Center horizontally */
+}
+
+.product-card button {
+  margin-top: 20px;
+  padding: 8px 12px;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.product-card button:hover {
+  background: #444;
+}.product-card img {
+  display: block;
+  margin: 0 auto 15px auto; /* centers image + adds 15px margin below */
+  width: 100%;  /* or fixed width */
+  height: 250px;
+  object-fit: contain;
+}
+
+.product-name {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+.product-price {
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+
+/* Responsive: Tablet and below (up to 1024px) */
+@media screen and (max-width: 1024px) {
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #000000;
+    padding: 18px;
+  }
+  .image-section {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 45%; /* Aspect ratio: 4:1 (adjust as needed) */
+  overflow: hidden;
+}
+  body {
+    padding-top: 60px; /* Adjust according to header height */
+  }
+
+  .products-section {
+    gap: 20px;
+    padding: 15px;
+    justify-content: center;
+  }
+
+  .product-card {
+    width: 160px;
+    padding: 15px;
+  }
+
+  .product-card img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Responsive: Mobile (up to 480px) */
+@media screen and (max-width: 480px) {
+  .products-section {
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .product-card {
+    width: 140px;
+    padding: 10px;
+  }
+
+  .product-card img {
+    width: 60px;
+    height: 60px;
+  }
+}
+  
+
+
+
+
+
+
+.black-text-section {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 200px 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+
+.black-text-section {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 15px;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+.footer-logo-desc {
+  max-width: 250px;
+}
+
+.footer-logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.footer-desc {
+  line-height: 1.6;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.footer-links, .footer-policies, .footer-support, .footer-contact {
+  flex: 1 1 150px;
+  min-width: 150px;
+}
+
+.footer-links h4,
+.footer-policies h4,
+.footer-support h4,
+.footer-contact h4 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.footer-links ul,
+.footer-policies ul,
+.footer-support ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li,
+.footer-policies ul li,
+.footer-support ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #eee;
+}
+
+.footer-contact p {
+  line-height: 1.5;
+  font-size: 14px;
+  color: #eee;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #bbb;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-links, .footer-policies, .footer-support, .footer-contact {
+    max-width: 100%;
+    text-align: center;
+  }
+  .footer-logo-desc {
+    text-align: center;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  .footer-bottom {
+    font-size: 12px;
+  }
+}
+

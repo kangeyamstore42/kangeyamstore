@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Category</title>
+  <title>Candy</title>
+  <link rel="icon" type="image/png" href="images/20250814_2110_Bull Face Letters_simple_compose_01k2mks4kqecvb66bc11ejds2b.png">
   <link rel="stylesheet" href="category.css" />
 </head>
 <body>
@@ -14,15 +15,16 @@
     <div class="dropdown">
       <button class="dropbtn">Products ▼</button>
       <div class="dropdown-content">
-        <a href="category.html?cat=peanutcandy">peanut candy</a>
-      <!---  <a href="category.html?cat=clothes">Clothes</a>-->
+        <a href="category.html?cat=peanutcandy">Candy Products</a>
+        <a href="ricebrand.html">Rice Products</a>
       </div>
     </div>
   <!---  <button onclick="goContact()">Contact</button>-->
   </div>
-  <div class="cart-icon" onclick="goCart()">Cart 🛒</div>
+  <div class="cart-icon" onclick="goCart()">Cart 🛒<span id="cart-count">0</span></div>
   
 </header>
+<h1 id="category-title" style="text-align: center;"><img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Logo" class="footer-logo" />KANGEYAM SHOPPY</h1>
 
 
 <section class="image-section">
@@ -32,7 +34,6 @@
 
 
 
-<h1 id="category-title"></h1>
 <section class="products-section" id="products"></section>
 
  <section class="black-text-section">
@@ -48,7 +49,7 @@
   <h4>Let Us Help</h4>
   <div style="margin-right: 50px;"> <!-- moves right by 50px -->
   <ul>
-    <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li>
+    <li><a href="getorderdetails/getorderdetails.html" style="color: white;">Order Details</a></li>
   </ul>
 </div>
 
@@ -80,7 +81,6 @@
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('cat');
-  document.getElementById('category-title').textContent = category ? category.toUpperCase() : 'Products';
   
   loadProducts(category);
   

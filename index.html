@@ -1,81 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple E-commerce</title>
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="google-site-verification" content="LJOMGWMTzHuaqWWnY60xk7XU13S4p2jjkaT3it5f574" />
-</head>
-<body>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kangeyam Shoppy</title>
+    <link rel="icon" type="image/png" href="images/20250814_2110_Bull Face Letters_simple_compose_01k2mks4kqecvb66bc11ejds2b.png">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
 
-<header>
-  <div class="left-buttons">
-    <button onclick="goHome()">Home</button>
-    <div class="dropdown">
-      <button class="dropbtn">Products ▼</button>
-      <div class="dropdown-content">
-        <a href="category.html?cat=peanutcandy">Peanut Candy</a>
-       <!--- <a href="category.html?cat=clothes">Clothes</a>-->
+  <header>
+    <div class="left-buttons">
+      <button onclick="goHome()">Home</button>
+      <div class="dropdown">
+        <button class="dropbtn">Products ▼</button>
+        <div class="dropdown-content">
+          <a href="category.html?cat=peanutcandy">Candy Products</a>
+          <a href="ricebrand.html">Rice Products</a>
+        </div>
+      </div>
+    <!--- <button onclick="goContact()">Contact</button>-->
+    </div>
+    <div class="cart-icon" onclick="goCart()">Cart 🛒<span id="cart-count">0</span></div>
+    
+  </header>
+<h1 id="category-title">
+  <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" class="footer-logo">KANGEYAM SHOPPY</h1>
+
+  <section class="image-section">
+    <img src="images/vecteezy_bottles-of-natural-oils-placed-on-a-womans-hair-amidst-a_51930279.jpeg" alt="Main Banner" class="slider-image active" />
+    <img src="images/vecteezy_bottles-of-natural-oils-placed-on-a-womans-hair-amidst-a_49695841.jpeg" alt="Second Banner" class="slider-image" />
+  </section>
+
+
+  <section class="products-section" id="products"></section>
+
+
+  <section class="black-text-section">
+    <div class="footer-container">
+      <div class="footer-logo-desc">
+        <img src="images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Fitobee Logo" class="footer-logo" />
+        <p class="footer-desc">
+          Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
+        </p>
+      </div>
+      <div class="footer-contact">
+        
+    <h4>Let Us Help</h4>
+    <div style="margin-right: 50px;"> <!-- moves right by 50px -->
+    <ul>
+      <li><a href="getorderdetails/getorderdetails.html" style="color: white;">Order Details</a></li>
+    </ul>
+  </div>
+
+      </div>
+      <div class="footer-support">
+        <h4>For Support</h4>
+        <ul>
+          <li>📞 (+91) 8124763694</li>
+          <li>(+91) 9042635662</li>
+          <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></p></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Reach Us</h4>
+        <p>
+          <br />KANGAYAM SHOPPING,
+          265 BHARATHIYAR STREET,<br />
+          TIRUPPUR ROAD,<br />
+          KANGAYAM - 638 701.
+        </p>
       </div>
     </div>
-   <!--- <button onclick="goContact()">Contact</button>-->
-  </div>
-  <div class="cart-icon" onclick="goCart()">Cart 🛒</div>
+    <div class="footer-bottom">
+      © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
+    </div>
+  </section>
+
+
+  <script src="scripts.js"></script>
   
-</header>
-
-<section class="image-section">
-  <img src="images/vecteezy_bottles-of-natural-oils-placed-on-a-womans-hair-amidst-a_51930279.jpeg" alt="Main Banner" class="slider-image active" />
-  <img src="images/vecteezy_bottles-of-natural-oils-placed-on-a-womans-hair-amidst-a_49695841.jpeg" alt="Second Banner" class="slider-image" />
-</section>
-
-
-<section class="products-section" id="products"></section>
-
-
-<section class="black-text-section">
-  <div class="footer-container">
-    <div class="footer-logo-desc">
-      <img src="images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Fitobee Logo" class="footer-logo" />
-      <p class="footer-desc">
-        Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
-      </p>
-    </div>
-    <div class="footer-contact">
-      
-  <h4>Let Us Help</h4>
-  <div style="margin-right: 50px;"> <!-- moves right by 50px -->
-  <ul>
-    <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li>
-  </ul>
-</div>
-
-    </div>
-    <div class="footer-support">
-      <h4>For Support</h4>
-      <ul>
-        <li>📞 (+91) 8124763694</li>
-        <li>(+91) 9042635662</li>
-        <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></p></li>
-      </ul>
-    </div>
-    <div class="footer-contact">
-      <h4>Reach Us</h4>
-      <p>
-        <br />KANGAYAM SHOPPING,
-        265 BHARATHIYAR STREET,<br />
-        TIRUPPUR ROAD,<br />
-        KANGAYAM - 638 701.
-      </p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
-  </div>
-</section>
-
-
-<script src="scripts.js"></script>
-</body>
-</html>
+  </body>
+  </html>

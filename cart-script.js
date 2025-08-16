@@ -1,6 +1,7 @@
 const tbody = document.querySelector("#cart-table tbody");
 const totalPriceDiv = document.getElementById("total-price");
 
+
 function loadCart() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   tbody.innerHTML = "";

@@ -128,3 +128,4 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
     swal("Error", "Something went wrong. Please try again!", "error");
   }
 });
+function goHome() { window.location.href = "index.html"; }

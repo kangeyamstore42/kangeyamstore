@@ -1,12 +1,8 @@
 // Sample product data organized by category just add image only don't change code (importent********)
 const products = {
   peanutcandy: [
-    { id: 4, code: "0004", name: "Peanut Candy", price: 150, img: "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg" },
-    { id: 5, code: "0005", name: "Peanut Candy Deluxe", price: 180, img: "images/vecteezy_close-up-of-a-stack-of-delicious-peanut-brittle-candy-bars_66482499.jpg" }
-  ],
-  clothes: [
-    { id: 6, code: "0006", name: "T-Shirt", price: 20, img: "images/tshirt.jpg" },
-    { id: 7, code: "0007", name: "Jeans", price: 40, img: "images/jeans.jpg" }
+    { id: 101, code: "1001", name: "Peanut Candy", price: 150, img: "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg",description: "Peanut Candy" },
+    { id: 102, code: "1002", name: "Peanut Candy Deluxe", price: 180, img: "images/vecteezy_close-up-of-a-stack-of-delicious-peanut-brittle-candy-bars_66482499.jpg", description: "Peanut Candy" }
   ]
 };
 
@@ -20,6 +16,9 @@ const products = {
 
 // Reference to container where product cards will be rendered
 const productsContainer = document.getElementById("products");
+
+// Flatten all products into a single array for easier ID lookup
+const allProducts = Object.values(products).flat();
 
 // Load products of a given category and render product cards
 function loadProducts(category) {
@@ -56,6 +55,26 @@ function loadProducts(category) {
   });
 }
 
+// Navigate to productshow page and save product to localStorage
+function openProductDetail(id) {
+  const product = allProducts.find(p => p.id === id);
+  if (!product) return;
+
+  localStorage.setItem("selectedProduct", JSON.stringify(product));
+  window.location.href = "productshow.html";
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+});
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalCount = cart.length; // number of products
+  document.getElementById("cart-count").textContent = totalCount;
+}
+
 // Adds a product object to cart stored in localStorage
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -71,33 +90,21 @@ function addToCart(product) {
   alert(`${product.name} added to cart!`);
 }
 
-// Navigate to product details page using product id
-function openProductDetail(id) {
-  window.location.href = `productshow.html?id=${id}`;
-}
-
 // Navigation helpers
-function goHome() {
-  window.location.href = "index.html";
-}
+function goHome() { window.location.href = "index.html"; }
+function goContact() { window.location.href = "contact.html"; }
+function goCart() { window.location.href = "cart.html"; }
 
-function goContact() {
-  window.location.href = "contact.html";
-}
-
-function goCart() {
-  window.location.href = "cart.html";
-}
-
-// Example call: load peanut candy category on page load
+// Load peanut candy category on page load
 loadProducts("peanutcandy");
 
-
+// Image slider (optional)
 const images = document.querySelectorAll('.image-section img.slider-image');
 let currentIndex = 0;
 
 setInterval(() => {
+  if(images.length === 0) return;
   images[currentIndex].classList.remove('active');
   currentIndex = (currentIndex + 1) % images.length;
   images[currentIndex].classList.add('active');
-}, 5000); // every 5 seconds
+}, 5000);
