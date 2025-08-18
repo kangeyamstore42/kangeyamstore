@@ -1,9 +1,69 @@
 // Sample product data this is important don't change code just add images only (importent*****)
+// Sample product data
 const products = [
-  { id: 1, code: "0001", name: "Hair Oil 250ml", img: "images/ecofriendly-beauty-product.jpg", price: 130, description: "Hair oil" },
-  { id: 2, code: "0002", name: "Hair Oil 500ml", img: "images/hair-serum-bottle-with-brown-hair.jpg", price: 180, description: "Hair oil" },
-  { id: 3, code: "0003", name: "Hair Oil 100ml", img: "images/front-view-oil-made-from-green-plant.jpg", price: 80, description: "Hair oil" },
+  { 
+    id: 1, 
+    code: "0001", 
+    name: "Hair Oil 250ml", 
+    img: "images/ecofriendly-beauty-product.jpg", 
+    price: 130, 
+    description: "Hair oil",
+    images: [
+      "images/ecofriendly-beauty-product.jpg", 
+      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
+      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg",
+    ]
+  },
+  { 
+    id: 2, 
+    code: "0002", 
+    name: "Hair Oil 500ml", 
+    img: "images/hair-serum-bottle-with-brown-hair.jpg", 
+    price: 180, 
+    description: "Hair oil",
+    images: [
+      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
+      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
+      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg"
+    ]
+  },
+  { 
+    id: 3, 
+    code: "0003", 
+    name: "Hair Oil 100ml", 
+    img: "images/front-view-oil-made-from-green-plant.jpg", 
+    price: 80, 
+    description: "Hair oil",
+    images: [
+      "images/front-view-oil-made-from-green-plant.jpg", 
+      "images/hair-100ml-side.jpg", 
+      "images/hair-100ml-back.jpg"
+    ]
+  }
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const productsContainer = document.getElementById("products");
@@ -74,6 +134,7 @@ function addToCart(productId) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   alert(`${product.name} added to cart!`);
+  updateCartCount();
 }
 
 // Navigation handlers

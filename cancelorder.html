@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cancel Order</title>
+  <link rel="stylesheet" href="cancelorder.css" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<header>
+    <div class="left-buttons">
+      <button onclick="goHome()">Home</button>
+    </div>
+  </header>
+<body>
+  <div class="container">
+    <h1>Cancel Your Order</h1>
+
+    <!-- Order ID input -->
+    <div class="card input-card">
+      <label for="order_id">Order ID</label>
+      <div class="input-wrapper">
+        <input type="text" id="order_id" placeholder="e.g. KS1808133851">
+        <button id="fetchOrder">Fetch Order</button>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div id="loading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Order details -->
+    <div id="order-details" class="card details-card">
+      <h2>Order Details</h2>
+      <div class="detail-row"><span>Name:</span> <span id="name"></span></div>
+      <div class="detail-row"><span>Email:</span> <span id="email"></span></div>
+      <div class="detail-row"><span>Products:</span></div>
+      <pre id="product_details"></pre>
+      <div class="detail-row"><span>Grand Total:</span> ₹<span id="grand_total"></span></div>
+
+      <label for="reason">Cancellation Reason</label>
+      <textarea id="reason" placeholder="Enter reason for cancellation"></textarea>
+      <button id="cancelOrderBtn" class="cancel-btn">Cancel Order</button>
+    </div>
+  </div>
+
+  <section class="black-text-section">
+    <div class="footer-container">
+      <div class="footer-logo-desc">
+        <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Logo" class="footer-logo" />
+        <p class="footer-desc">
+          Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Let Us Help</h4>
+        <ul>
+          <li><a href="getorderdetails.html" style="color: white;">Order Details</a></li><br>
+          <li><a href="cancelorder.html" style="color: white;">Cancel Order</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-support">
+        <h4>For Support</h4>
+        <ul>
+          <li>📞 (+91) 8124763694</li>
+          <li>(+91) 9042635662</li>
+          <li>✉️ <a href="mailto:kangeyamstore42@gmail.com" style="color: white;">kangeyamstore42@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Reach Us</h4>
+        <p>
+          KANGAYAM SHOPPING,<br>
+          265 BHARATHIYAR STREET,<br>
+          TIRUPPUR ROAD,<br>
+          KANGAYAM - 638 701.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 Copy Rights. All Rights Received By Kanagayam Shopping.
+    </div>
+  </section>
+
+  <script src="cancelorder.js"></script>
+</body>
+</html>

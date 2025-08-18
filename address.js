@@ -129,3 +129,42 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
   }
 });
 function goHome() { window.location.href = "index.html"; }
+function goCart() { window.location.href = "cart.html"; }
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCount();
+});
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalCount = cart.length; // number of products
+  document.getElementById("cart-count").textContent = totalCount;
+}
+
+function toggleCart() {
+  const content = document.getElementById("cartContent");
+  const toggleText = document.getElementById("cartToggleText");
+
+  if (content.style.display === "block") {
+    // Hide cart
+    content.style.display = "none";
+    toggleText.textContent = "Products ▲";
+  } else {
+    // Show cart
+    content.style.display = "block";
+    toggleText.textContent = "Products ▼";
+  }
+}
+
+function togglePayment(radio) {
+  const codDetails = document.getElementById("codDetails");
+
+  if (radio.value === "COD") {
+    codDetails.style.display = "block";
+    console.log("Selected: Cash on Delivery");
+  } else {
+    codDetails.style.display = "none";
+    console.log("Selected: Prepaid");
+  }
+}
+

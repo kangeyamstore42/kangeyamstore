@@ -11,22 +11,36 @@
 </head>
 <body>
   <header>
-   <button onclick="goHome()">Home</button>
+    <div class="left-buttons">
+      <button onclick="goHome()">Home</button>
+      <div class="dropdown">
+        <button class="dropbtn">Products ▼</button>
+        <div class="dropdown-content">
+          <a href="category.html?cat=peanutcandy">Candy Products</a>
+          <a href="ricebrand.html">Rice Products</a>
+          <a href="pickle.html">Pickles</a>
+        </div>
+      </div>
+    <!--- <button onclick="goContact()">Contact</button>-->
+    </div>
+    <div class="cart-icon" onclick="goCart()">Cart 🛒<span id="cart-count">0</span></div>
+    
   </header>
    <h2 id="category-title">
-  <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" class="footer-logo"><b>KANGEYAM SHOPPY</b></h2>
+  <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" class="footer-logo"><b>KANGEYAM STORE 42</b></h2>
+  
 
    <div class="prepaid-notice">
   <h6>Prepaid option is available only. You can place your order, and our employee will call you afterward.</h6>
-  <h6>முன்பணம் மூலம் கட்டும் விருப்பம் மட்டுமே கிடைக்கும். நீங்கள் உங்கள் ஆர்டரைச் செய்யலாம், பின்னர் எங்கள் ஊழியர் உங்களை தொடர்பு கொள்வார்.</h6>
-</div>
+  <h6>முன்பணம் செலுத்தும் வசதி மட்டுமே உள்ளது. நீங்கள் ஆர்டர் செய்தவுடன், எங்கள் பணியாளர் உங்களை தொடர்பு கொள்வார்.</h6>
+</div><br>
+
 
 
 
 
 <div class="container">
   <div class="checkout-container">
-    
     <!-- Left: Address Form -->
     <div class="form-section">
       <h4>Contact</h4>
@@ -64,20 +78,39 @@
           <input class="form-control" type="text" id="pincode" name="pincode" required>
         </div>
         
-        <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+        <button type="submit" class="btn btn-primary btn-block">Place Order</button>
       </form>
     </div>
+
+<!---   <div class="cart-summary">
+  <label>
+    <input type="radio" name="payment" value="COD" onclick="togglePayment(this)" />
+    Cash on Delivery
+  </label>
+  <label>
+    <input type="radio" name="payment" value="Prepaid" onclick="togglePayment(this)" />
+    Prepaid
+  </label>
+  <div class="cod-details" id="codDetails">
+    ⚠️ Extra charge: ₹100 will be applied for Cash on Delivery.
+  </div>
+</div>-->
+
+
+
     
     <!-- Right: Cart Summary -->
-    <div class="cart-summary">
-      <h5>Your Cart</h5>
-      <div id="cartItems"></div>
-      <div class="cart-total" id="cartTotal">Total: ₹0</div>
-    </div>
+   <div class="cart-summary">
+  <h5 onclick="toggleCart()">
+    <span id="cartToggleText">Products ▲</span>
+  </h5>
+  <div class="cart-content" id="cartContent">
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal">Total: ₹0</div>
+  </div>
+</div>
 
-   
 
-    
   </div>
 </div>
 <br>
@@ -96,7 +129,8 @@
   <h4>Let Us Help</h4>
   <div style="margin-right: 50px;"> <!-- moves right by 50px -->
   <ul>
-    <li><a href="getorderdetails/getorderdetails.html" style="color: white;">Order Details</a></li>
+    <li><a href="getorderdetails/getorderdetails.html" style="color: white;">Order Details</a></li><br>
+    <li><a href="cancelorder.html" style="color: white;">Cancel Order</a></li>
   </ul>
 </div>
 
@@ -106,7 +140,7 @@
       <ul>
         <li>📞 (+91) 8124763694</li>
         <li>(+91) 9042635662</li>
-        <li>✉️ <a href="mailto:jawakar172@gmail.com" style="color: white;">jawakar172@gmail.com</a></p></li>
+        <li>✉️ <a href="mailto:kangeyamstore42@gmail.com" style="color: white;">kangeyamstore42@gmail.com</a></li>
       </ul>
     </div>
     <div class="footer-contact">

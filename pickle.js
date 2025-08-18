@@ -1,12 +1,8 @@
 // Sample product data (don't change code, only images)
 const products = [
-  { id: 201, code: "2001", name: "Akshaya ponni - 26kg", img: "images/rice image1.jpg", price: 1800, description: "Ponni Rice" },
-  { id: 202, code: "2002", name: "Akshaya ponni - 10kg", img: "images/rice image1.jpg", price: 800, description: "Ponni Rice" },
-  { id: 203, code: "2003", name: "Akshaya ponni - 5kg", img: "images/rice image1.jpg", price: 400, description: "Ponni Rice" },
-  { id: 204, code: "2004", name: "5, 6 - 20 Brand -  26kg", img: "images/rice image 2.jpg", price: 1350, description: "5, 6 - 20 Brand" },
-  { id: 205, code: "2005", name: "5, 6 - 20 Brand -  10kg", img: "images/rice image 2.jpg", price: 550, description: "5, 6 - 20 Brand" },
-  { id: 206, code: "2006", name: "5, 6 - 20 Brand -  5kg", img: "images/rice image 2.jpg", price: 275, description: "5, 6 - 20 Brand" },
-
+  { id: 301, code: "3001", name: "pickle", img: "images/pickle1.jpg", price: 1800, description: "Ponni Rice" },
+  { id: 302, code: "3002", name: "pickle", img: "images/pickle2.jpg", price: 800, description: "Ponni Rice" },
+  { id: 303, code: "3003", name: "pickle", img: "images/pickle3.jpg", price: 400, description: "Ponni Rice" }
 ];
 
 const productsContainer = document.getElementById("products");
