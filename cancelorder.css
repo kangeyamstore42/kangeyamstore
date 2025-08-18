@@ -36,6 +36,7 @@ h1 {
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  margin-right: 17px;
 }
 
 input[type="text"], textarea {
@@ -134,7 +135,7 @@ pre {
 }
 
 /* Responsive */
-@media(max-width: 480px) {
+@media(max-width: 500px) {
   .input-wrapper { flex-direction: column; }
   button { width: 100%; }
 }
@@ -258,7 +259,7 @@ pre {
     /* footer styles from original */
     .black-text-section { width: 100%; background-color: black; color: white; padding: 10px 0; text-align: center; font-size: 15px; }
     .footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 30px; }
-    .footer-logo-desc { max-width: 250px; }
+    .footer-logo-desc { max-width: 400px; }
     .footer-logo { width: 120px; margin-bottom: 15px; }
     .footer-desc { line-height: 1.6; font-size: 14px; color: #ddd; }
     .footer-links, .footer-policies, .footer-support, .footer-contact { flex: 1 1 150px; min-width: 150px; }
@@ -269,9 +270,31 @@ pre {
     .footer-bottom { border-top: 1px solid #333; margin-top: 30px; padding-top: 15px; text-align: center; font-size: 13px; color: #bbb; }
 
     /* Responsive */
-    @media (max-width: 480px) {
-      .container { padding: 25px 20px 30px; }
+    @media (max-width: 500px) {
+      .container { padding: 25px 2px 30px; }
       h1 { font-size: 1.5rem; }
       button.search-btn { font-size: 1rem; }
       .left-buttons button { padding: 6px 12px; font-size: 0.9rem; }
     }
+
+    /* Footer responsiveness */
+@media (max-width: 768px) {
+  .footer-container {
+    display: flex;
+    flex-direction: column; /* Stack all sections */
+    gap: 20px;
+  }
+
+  .footer-contact-section,
+  .footer-support-section,
+  .footer-reach-section,
+  .footer-logo-desc {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .footer-contact-section ul li,
+  .footer-support-section ul li {
+    display: block;      /* Each item on its own line */
+    margin-bottom: 12px; /* Space between items */
+  }
+}

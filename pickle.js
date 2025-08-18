@@ -2,7 +2,7 @@
 const products = [
   { id: 301, code: "3001", name: "pickle", img: "images/pickle1.jpg", price: 1800, description: "Ponni Rice" },
   { id: 302, code: "3002", name: "pickle", img: "images/pickle2.jpg", price: 800, description: "Ponni Rice" },
-  { id: 303, code: "3003", name: "pickle", img: "images/pickle3.jpg", price: 400, description: "Ponni Rice" }
+  { id: 303, code: "3003", name: "pickle", img: "images/pickle3.jpg", price: 400, description: "Ponni Rice" },
 ];
 
 const productsContainer = document.getElementById("products");
@@ -58,10 +58,10 @@ function addToCart(productId) {
   } else {
     cart.push({ ...product, qty: 1 });
   }
-
+  updateCartCount();
   localStorage.setItem("cart", JSON.stringify(cart));
   alert(`${product.name} added to cart!`);
-  updateCartCount();
+  
 }
 
 // Navigate to productshow page and save product to localStorage
