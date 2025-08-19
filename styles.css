@@ -128,7 +128,30 @@ header .cart-icon {
   position: absolute;
 }
 
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  max-width: 90%; /* makes it fit on small screens */
+  background-color: #4CAF50; /* Green */
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  padding: 14px;
+  position: fixed;
+  left: 50%;
+  bottom: 30px;  /* always at bottom */
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+}
 
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
 
 /* Product List */
 .products-section {

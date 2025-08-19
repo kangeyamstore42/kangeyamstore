@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("product-name").textContent = currentProduct.name;
   document.getElementById("product-price").textContent = currentProduct.price;
   document.getElementById("qty").textContent = currentQty;
+  document.getElementById("delivery").textContent = currentProduct.delivery;
 
   // Show product description
   document.getElementById("product-description").innerHTML =
@@ -77,6 +78,16 @@ function updateCartCount() {
   document.getElementById("cart-count").textContent = totalCount;
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "toast show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2500); // disappear after 2.5 sec
+}
+
 // Add to cart
 function addToCart() {
   if (!currentProduct) return;
@@ -91,8 +102,8 @@ function addToCart() {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-   updateCartCount();
-  alert(`${currentProduct.name} (${currentQty}) added to cart!`);
+  showToast(`${currentProduct.name} (${currentQty}) added to cart!`);
+  updateCartCount();
 }
 
 // Navigation

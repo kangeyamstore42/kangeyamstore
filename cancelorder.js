@@ -71,7 +71,11 @@ cancelBtn.addEventListener("click", async () => {
     const response = await fetch(scriptURL, { method: "POST", body: formData });
     const resultText = await response.text();
 
-    swal("Success", resultText, "success");
+    swal("Success", resultText, "success")
+    .then(() => {
+    // ✅ Redirect to index page after clicking OK
+    window.location.href = "index.html";
+  });
     document.getElementById("reason").value = "";
 
   } catch (err) {

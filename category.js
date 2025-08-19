@@ -1,8 +1,20 @@
 // Sample product data organized by category just add image only don't change code (importent********)
 const products = {
   peanutcandy: [
-    { id: 101, code: "1001", name: "Peanut Candy", price: 150, img: "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg",description: "Peanut Candy" },
-    { id: 102, code: "1002", name: "Peanut Candy Deluxe", price: 180, img: "images/vecteezy_close-up-of-a-stack-of-delicious-peanut-brittle-candy-bars_66482499.jpg", description: "Peanut Candy" }
+    { id: 101, 
+      code: "1001", 
+      name: "Peanut Candy (40pcs)", 
+      price: 200, 
+      img: "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg",
+      description: "Our Peanut Candy is a perfect blend of crunchy roasted peanuts and pure jaggery, made using traditional methods for an authentic taste. This healthy snack is rich in protein, iron, and natural energy, making it an ideal choice for kids, adults, and fitness lovers.",
+      delivery: "Free Shipping" },
+    { id: 102, 
+      code: "1002", 
+      name: "Peanut Candy Deluxe (40pcs)", 
+      price: 200, 
+      img: "images/vecteezy_close-up-of-a-stack-of-delicious-peanut-brittle-candy-bars_66482499.jpg", 
+      description: "Our Peanut Candy is a perfect blend of crunchy roasted peanuts and pure jaggery, made using traditional methods for an authentic taste. This healthy snack is rich in protein, iron, and natural energy, making it an ideal choice for kids, adults, and fitness lovers.",
+      delivery: "Free Shipping" }
   ]
 };
 
@@ -75,6 +87,16 @@ function updateCartCount() {
   document.getElementById("cart-count").textContent = totalCount;
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "toast show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2500); // disappear after 2.5 sec
+}
+
 // Adds a product object to cart stored in localStorage
 function addToCart(product) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -87,7 +109,7 @@ function addToCart(product) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${product.name} added to cart!`);
+  showToast(`${product.name} added to cart!`);
   updateCartCount();
 }
 

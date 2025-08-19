@@ -331,6 +331,7 @@ button:hover, .dropbtn:hover {
   .footer-links, .footer-policies, .footer-support, .footer-contact {
     max-width: 100%;
     text-align: center;
+    align-items: center;
   }
   .footer-logo-desc {
     text-align: center;

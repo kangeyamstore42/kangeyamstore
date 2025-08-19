@@ -1,8 +1,8 @@
 // Sample product data (don't change code, only images)
 const products = [
-  { id: 301, code: "3001", name: "pickle", img: "images/pickle1.jpg", price: 1800, description: "Ponni Rice" },
-  { id: 302, code: "3002", name: "pickle", img: "images/pickle2.jpg", price: 800, description: "Ponni Rice" },
-  { id: 303, code: "3003", name: "pickle", img: "images/pickle3.jpg", price: 400, description: "Ponni Rice" },
+  { id: 301, code: "3001", name: "pickle", img: "images/pickle1.jpg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal." },
+  { id: 302, code: "3002", name: "pickle", img: "images/pickle2.jpg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal." },
+  { id: 303, code: "3003", name: "pickle", img: "images/pickle3.jpg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal." },
 ];
 
 const productsContainer = document.getElementById("products");
@@ -46,6 +46,16 @@ function updateCartCount() {
   document.getElementById("cart-count").textContent = totalCount;
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "toast show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2500); // disappear after 2.5 sec
+}
+
 // Add to cart in localStorage
 function addToCart(productId) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -58,10 +68,10 @@ function addToCart(productId) {
   } else {
     cart.push({ ...product, qty: 1 });
   }
-  updateCartCount();
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${product.name} added to cart!`);
   
+  localStorage.setItem("cart", JSON.stringify(cart));
+  showToast(`${product.name} added to cart!`);
+  updateCartCount();
 }
 
 // Navigate to productshow page and save product to localStorage

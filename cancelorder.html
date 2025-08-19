@@ -32,17 +32,31 @@
 
     <!-- Order details -->
     <div id="order-details" class="card details-card">
-      <h2>Order Details</h2>
-      <div class="detail-row"><span>Name:</span> <span id="name"></span></div>
-      <div class="detail-row"><span>Email:</span> <span id="email"></span></div>
-      <div class="detail-row"><span>Products:</span></div>
-      <pre id="product_details"></pre>
-      <div class="detail-row"><span>Grand Total:</span> ₹<span id="grand_total"></span></div>
+  <h2>Order Details</h2>
+  <div class="detail-row"><span>Name:</span> <span id="name"></span></div>
+  <div class="detail-row"><span>Email:</span> <span id="email"></span></div>
+  <div class="detail-row"><span>Products:</span></div>
+  <pre id="product_details"></pre>
+  <div class="detail-row"><span>Grand Total:</span> ₹<span id="grand_total"></span></div>
 
-      <label for="reason">Cancellation Reason</label>
-      <textarea id="reason" placeholder="Enter reason for cancellation"></textarea>
-      <button id="cancelOrderBtn" class="cancel-btn">Cancel Order</button>
-    </div>
+  <label for="reason">Cancellation Reason</label>
+  <div class="dropdown-container">
+    <select id="reason" class="styled-select">
+      <option value="">-- Select a reason --</option>
+      <option value="Ordered by mistake">Ordered by mistake</option>
+      <option value="Found cheaper elsewhere">Found cheaper elsewhere</option>
+      <option value="Delivery time too long">Delivery time too long</option>
+      <option value="Change of mind">Change of mind</option>
+      <option value="Wrong product ordered">Wrong product ordered</option>
+      <option value="Don’t need the product anymore">Don’t need the product anymore</option>
+      <option value="Payment related issue">Payment related issue</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <button id="cancelOrderBtn" class="cancel-btn">Cancel Order</button>
+</div>
+
   </div>
 
   <section class="black-text-section">

@@ -120,8 +120,12 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
 
     swal.close();
     //swal("Done", "Order Submitted Successfully!", "success");
-    swal("Done", `Order Submitted Successfully!\nYour Order ID: ${orderId}`, "success");
+    swal("Done", `Order Submitted Successfully!\nYour Order ID: ${orderId}`, "success")
     //localStorage.removeItem("cart");
+    .then(() => {
+    // ✅ Redirect to index page after clicking OK
+    window.location.href = "index.html";
+  });
 
   } catch (error) {
     swal.close();
@@ -156,7 +160,7 @@ function toggleCart() {
   }
 }
 
-function togglePayment(radio) {
+/*function togglePayment(radio) {
   const codDetails = document.getElementById("codDetails");
 
   if (radio.value === "COD") {
@@ -166,5 +170,5 @@ function togglePayment(radio) {
     codDetails.style.display = "none";
     console.log("Selected: Prepaid");
   }
-}
+}*/
 

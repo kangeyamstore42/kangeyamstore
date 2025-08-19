@@ -1,44 +1,38 @@
 // Sample product data this is important don't change code just add images only (importent*****)
 // Sample product data
+const baseDescription = "Our Herbal Hair Oil is a powerful blend of 15 traditional herbs and natural oils, prepared using an age-old method to preserve their full medicinal value. Enriched with the goodness of <strong>Curry leaves, Henna, Savarikodi, Acalypha, Drumstick leaves, Hibiscus, Phyllanthus, Black cumin, Fenugreek, Amla, Tulsi, Black seeds, Ajwain leaves, and Shallots</strong>, this oil provides complete nourishment for your hair and scalp.";
+
 const products = [
   { 
     id: 1, 
     code: "0001", 
-    name: "Hair Oil 250ml", 
+    name: "Herbal Hair Oil 100ml", 
     img: "images/ecofriendly-beauty-product.jpg", 
-    price: 130, 
-    description: "Hair oil",
-    images: [
+    price: 150, 
+    description: baseDescription,
+    delivery : "Free Shipping",
+   /* images: [
       "images/ecofriendly-beauty-product.jpg", 
       "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
-      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg",
-    ]
+    ]*/
   },
   { 
     id: 2, 
     code: "0002", 
-    name: "Hair Oil 500ml", 
+    name: "Herbal Hair Oil 200ml", 
     img: "images/hair-serum-bottle-with-brown-hair.jpg", 
-    price: 180, 
-    description: "Hair oil",
-    images: [
-      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
-      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
-      "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg"
-    ]
+    price: 270, 
+    description: baseDescription,
+    delivery : "Free Shipping",
   },
   { 
     id: 3, 
     code: "0003", 
-    name: "Hair Oil 100ml", 
+    name: "Hair Oil 200ml", 
     img: "images/front-view-oil-made-from-green-plant.jpg", 
-    price: 80, 
-    description: "Hair oil",
-    images: [
-      "images/front-view-oil-made-from-green-plant.jpg", 
-      "images/hair-100ml-side.jpg", 
-      "images/hair-100ml-back.jpg"
-    ]
+    price: 150, 
+    description: baseDescription,
+    delivery : "Free Shipping",
   }
 ];
 
@@ -119,6 +113,16 @@ function updateCartCount() {
   document.getElementById("cart-count").textContent = totalCount;
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "toast show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2500); // disappear after 2.5 sec
+}
+
 // Add to cart in localStorage
 function addToCart(productId) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -131,9 +135,9 @@ function addToCart(productId) {
   } else {
     cart.push({ ...product, qty: 1 });
   }
-
+  
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${product.name} added to cart!`);
+  showToast(`${product.name} added to cart!`);
   updateCartCount();
 }
 

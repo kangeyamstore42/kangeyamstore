@@ -1,11 +1,11 @@
 // Sample product data (don't change code, only images)
 const products = [
-  { id: 201, code: "2001", name: "Akshaya ponni - 26kg", img: "images/rice image1.jpg", price: 1800, description: "Ponni Rice" },
-  { id: 202, code: "2002", name: "Akshaya ponni - 10kg", img: "images/rice image1.jpg", price: 800, description: "Ponni Rice" },
-  { id: 203, code: "2003", name: "Akshaya ponni - 5kg", img: "images/rice image1.jpg", price: 400, description: "Ponni Rice" },
-  { id: 204, code: "2004", name: "5, 6 - 20 Brand -  26kg", img: "images/rice image 2.jpg", price: 1350, description: "5, 6 - 20 Brand" },
-  { id: 205, code: "2005", name: "5, 6 - 20 Brand -  10kg", img: "images/rice image 2.jpg", price: 550, description: "5, 6 - 20 Brand" },
-  { id: 206, code: "2006", name: "5, 6 - 20 Brand -  5kg", img: "images/rice image 2.jpg", price: 275, description: "5, 6 - 20 Brand" },
+  { id: 201, code: "2001", name: "Akshaya ponni - 26kg", img: "images/rice image1.jpg", price: 1800, description: "Akshaya Ponni Rice is a premium-quality rice variety cultivated in the fertile lands of Manachanallur, Tamil Nadu – a region known for producing the finest rice in South India. Carefully harvested and processed to retain its natural aroma, taste, and nutritional value, this rice is soft, fluffy, and perfect for everyday meals." },
+  { id: 202, code: "2002", name: "Akshaya ponni - 10kg", img: "images/rice image1.jpg", price: 800, description: "Akshaya Ponni Rice is a premium-quality rice variety cultivated in the fertile lands of Manachanallur, Tamil Nadu – a region known for producing the finest rice in South India. Carefully harvested and processed to retain its natural aroma, taste, and nutritional value, this rice is soft, fluffy, and perfect for everyday meals." },
+  { id: 203, code: "2003", name: "Akshaya ponni - 5kg", img: "images/rice image1.jpg", price: 400, description: "Akshaya Ponni Rice is a premium-quality rice variety cultivated in the fertile lands of Manachanallur, Tamil Nadu – a region known for producing the finest rice in South India. Carefully harvested and processed to retain its natural aroma, taste, and nutritional value, this rice is soft, fluffy, and perfect for everyday meals." },
+  { id: 204, code: "2004", name: "5, 6 - 20 Brand -  26kg", img: "images/rice image 2.jpg", price: 1350, description: "5, 6 - 20 Brand Rice is a premium-grade rice cultivated in the fertile fields of Manachanallur, Tamil Nadu. Known for its authentic taste, soft texture, and natural aroma, this rice is a trusted choice for South Indian households. Carefully cleaned and stone-free, it ensures the perfect balance of purity, nutrition, and quality in every meal." },
+  { id: 205, code: "2005", name: "5, 6 - 20 Brand -  10kg", img: "images/rice image 2.jpg", price: 550, description: "5, 6 - 20 Brand Rice is a premium-grade rice cultivated in the fertile fields of Manachanallur, Tamil Nadu. Known for its authentic taste, soft texture, and natural aroma, this rice is a trusted choice for South Indian households. Carefully cleaned and stone-free, it ensures the perfect balance of purity, nutrition, and quality in every meal." },
+  { id: 206, code: "2006", name: "5, 6 - 20 Brand -  5kg", img: "images/rice image 2.jpg", price: 275, description: "5, 6 - 20 Brand Rice is a premium-grade rice cultivated in the fertile fields of Manachanallur, Tamil Nadu. Known for its authentic taste, soft texture, and natural aroma, this rice is a trusted choice for South Indian households. Carefully cleaned and stone-free, it ensures the perfect balance of purity, nutrition, and quality in every meal." },
 
 ];
 
@@ -50,6 +50,15 @@ function updateCartCount() {
   document.getElementById("cart-count").textContent = totalCount;
 }
 
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "toast show";
+
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 2500); // disappear after 2.5 sec
+}
 // Add to cart in localStorage
 function addToCart(productId) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -64,7 +73,7 @@ function addToCart(productId) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${product.name} added to cart!`);
+  showToast(`${product.name} added to cart!`);
   updateCartCount();
 }
 
