@@ -1,147 +1,129 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scan & Update Tracking Number</title>
   <script src="https://unpkg.com/html5-qrcode"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 500px;
-      margin: auto;
-      background: #f9f9f9;
-    }
-    h2 {
-      text-align: center;
-      color: #1976d2;
-    }
-    .scanner-container {
-      margin-bottom: 20px;
-    }
-    .scanner-box {
-      width: 100%;
-      max-width: 400px;
-      margin: 10px auto;
-      display: none;
-      border: 2px solid #1976d2;
-      border-radius: 8px;
-    }
-    input, button {
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 16px;
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #1976d2;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0d47a1;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; }
+    h2 { text-align: center; color: #1976d2; }
+    .scanner-box { width: 100%; max-width: 400px; height: 300px; margin: 10px auto; border: 2px solid #1976d2; border-radius: 8px; display: none; background: black; }
+    input, button { padding: 10px; margin: 8px 0; font-size: 16px; width: 100%; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+    button { background-color: #1976d2; color: white; border: none; cursor: pointer; }
+    button:hover { background-color: #0d47a1; }
+    #orderDetails, #trackingSection { background: #fff; padding: 12px; border-radius: 8px; margin-top: 10px; border: 1px solid #ccc; display: none; }
   </style>
 </head>
 <body>
 
 <h2>Update Tracking Number</h2>
 
-<div class="scanner-container">
-  <h3>Order ID</h3>
-  <div id="orderScanner" class="scanner-box"></div>
-  <button onclick="startScanner('orderScanner','orderIdInput')">📷 Scan Order ID</button>
-  <input type="text" id="orderIdInput" placeholder="Or enter Order ID manually">
+<!-- Order ID -->
+<h3>Order ID</h3>
+<div id="orderScanner" class="scanner-box"></div>
+<button onclick="startScanner('orderScanner','orderIdInput', true)">📷 Scan Order ID</button>
+<input type="text" id="orderIdInput" placeholder="Or enter Order ID manually" onblur="fetchOrderDetails()"/>
+
+<!-- Order details -->
+<div id="orderDetails">
+  <p><b>Name:</b> <span id="custName"></span></p>
+  <p><b>Contact:</b> <span id="custContact"></span></p>
+  <p><b>Existing Tracking #:</b> <span id="existingTracking"></span></p>
 </div>
 
-<div class="scanner-container">
+<!-- Tracking -->
+<div id="trackingSection">
   <h3>Tracking Number</h3>
   <div id="trackingScanner" class="scanner-box"></div>
   <button onclick="startScanner('trackingScanner','trackingInput')">📷 Scan Tracking Number</button>
-  <input type="text" id="trackingInput" placeholder="Or enter Tracking Number manually">
+  <input type="text" id="trackingInput" placeholder="Or enter Tracking Number manually"/>
+  <button id="updateBtn" onclick="submitData()">✅ Update Tracking Number</button>
 </div>
-
-<button onclick="submitData()">✅ Submit</button>
 
 <script>
 let currentScanner = null;
+const apiBase = "https://script.google.com/macros/s/AKfycby6bnZLR-IdLQCjUh6AwbgBUyTKN5uLJYtS3uzusZpXsLjtKaqOPE9qyJxYziccADqzVQ/exec"; // <-- /exec URL
 
-// Start QR Scanner
-function startScanner(scannerId, inputId) {
-  // Stop previous scanner if active
+function startScanner(scannerId, inputId, fetchAfter = false) {
   if (currentScanner) {
-    currentScanner.stop().catch(err => console.error(err));
-    document.querySelectorAll('.scanner-box').forEach(div => div.style.display = 'none');
+    currentScanner.stop().catch(()=>{}); 
+    document.querySelectorAll('.scanner-box').forEach(d=>d.style.display="none");
     currentScanner = null;
   }
-
-  const scannerDiv = document.getElementById(scannerId);
-  scannerDiv.style.display = "block";
+  const box = document.getElementById(scannerId);
+  box.style.display = "block";
 
   currentScanner = new Html5Qrcode(scannerId);
-
-  // Ask for camera permission & start scanning
-  Html5Qrcode.getCameras().then(devices => {
-    if (devices && devices.length) {
-      currentScanner.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 100 } },
-        (decodedText) => {
-          document.getElementById(inputId).value = decodedText;
-          // Auto stop scanner after scan
-          currentScanner.stop().then(() => {
-            scannerDiv.style.display = "none";
-            currentScanner = null;
-          }).catch(err => console.error("Stop failed", err));
-        }
-      ).catch(err => console.error("Start failed", err));
-    } else {
-      alert("No camera found on this device.");
-    }
-  }).catch(err => {
-    console.error(err);
-    alert("Camera access denied or unavailable.");
-  });
+  Html5Qrcode.getCameras().then(devs=>{
+    if (!devs || !devs.length) { alert("No camera found"); return; }
+    const camId = (devs.find(d => (d.label||"").toLowerCase().includes("back"))?.id) || devs[0].id;
+    currentScanner.start(
+      { deviceId: { exact: camId } },
+      { fps: 10, qrbox: { width: 250, height: 100 } },
+      (text) => {
+        document.getElementById(inputId).value = text;
+        currentScanner.stop().then(()=>{
+          box.style.display="none";
+          currentScanner = null;
+          if (fetchAfter) fetchOrderDetails();
+        });
+      }
+    ).catch(err => alert("Camera start failed: " + err));
+  }).catch(err => alert("Camera error: " + err));
 }
 
-// Submit Order ID + Tracking Number
+function fetchOrderDetails() {
+  const orderId = document.getElementById("orderIdInput").value.trim();
+  if (!orderId) return;
+  fetch(apiBase + "?order_id=" + encodeURIComponent(orderId))
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        document.getElementById("custName").innerText = data.name || "-";
+        document.getElementById("custContact").innerText = data.contact_number || "-";
+        document.getElementById("existingTracking").innerText = data.tracking_number || "(none)";
+        document.getElementById("orderDetails").style.display = "block";
+        document.getElementById("trackingSection").style.display = "block";
+        document.getElementById("trackingInput").value = data.tracking_number || "";
+      } else {
+        document.getElementById("orderDetails").style.display = "none";
+        document.getElementById("trackingSection").style.display = "none";
+        alert("❌ Order not found");
+      }
+    })
+    .catch(err => alert("Network error: " + err.message));
+}
+
 function submitData() {
   const orderId = document.getElementById("orderIdInput").value.trim();
   const trackingNumber = document.getElementById("trackingInput").value.trim();
+  if (!orderId || !trackingNumber) { alert("⚠️ Enter Order ID & Tracking Number"); return; }
 
-  if (!orderId || !trackingNumber) {
-    alert("Please scan or enter both Order ID and Tracking Number!");
-    return;
-  }
+  const btn = document.getElementById("updateBtn");
+  btn.disabled = true;
 
-  fetch("https://script.google.com/macros/s/AKfycbxpnm4cfA5WTdUMlfnK9h2FBey9aAmOqZQmy1AOlI9mzXFoUYniD94UFK6l1567Xh1sow/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ order_id: orderId, tracking_number: trackingNumber })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("✅ " + data.message);
-      document.getElementById("orderIdInput").value = "";
-      document.getElementById("trackingInput").value = "";
-    } else {
-      alert("❌ Error: " + data.error);
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Network error: " + err.message);
-  });
+  // Send as form-data to be maximally compatible with Apps Script
+  const form = new FormData();
+  form.append("order_id", orderId);
+  form.append("tracking_number", trackingNumber);
+
+  fetch(apiBase, { method: "POST", body: form })
+    .then(r => r.json())
+    .then(data => {
+      btn.disabled = false;
+      if (data.success) {
+        document.getElementById("existingTracking").innerText = trackingNumber;
+        alert("✅ Tracking number updated!");
+      } else {
+        alert("❌ Update failed: " + (data.error || "Unknown error"));
+      }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      alert("Network error: " + err.message);
+    });
 }
 </script>
-
 </body>
 </html>
-
