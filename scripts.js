@@ -1,13 +1,14 @@
 // Sample product data this is important don't change code just add images only (importent*****)
 // Sample product data
 const baseDescription = "Our Herbal Hair Oil is a powerful blend of 15 traditional herbs and natural oils, prepared using an age-old method to preserve their full medicinal value. Enriched with the goodness of <strong>Curry leaves, Henna, Savarikodi, Acalypha, Drumstick leaves, Hibiscus, Phyllanthus, Black cumin, Fenugreek, Amla, Tulsi, Black seeds, Ajwain leaves, and Shallots</strong>, this oil provides complete nourishment for your hair and scalp.";
+const normalhairoil = "Our <strong>sulphur-free</strong> coconut oil is carefully extracted to retain its natural nutrients, making it perfect for hair, skin, and cooking. It nourishes and strengthens hair, promotes a healthy scalp, and keeps your skin soft and hydrated without any irritation. Completely natural and chemical-free, this coconut oil is safe for daily use and ideal for anyone looking for a wholesome, eco-friendly product. Experience the pure goodness of nature with every drop."
 
 const products = [
   { 
     id: 1, 
     code: "0001", 
     name: "Herbal Hair Oil 100ml", 
-    img: "images/ecofriendly-beauty-product.jpg", 
+    img: "images/oil.jpeg", 
     price: 150, 
     description: baseDescription,
     delivery : "Free Shipping",
@@ -19,8 +20,8 @@ const products = [
   { 
     id: 2, 
     code: "0002", 
-    name: "Herbal Hair Oil 200ml", 
-    img: "images/hair-serum-bottle-with-brown-hair.jpg", 
+    name: "Herbal Hair Oil 200ml - - Combo Pack", 
+    img: "images/oil.jpeg", 
     price: 270, 
     description: baseDescription,
     delivery : "Free Shipping",
@@ -28,10 +29,10 @@ const products = [
   { 
     id: 3, 
     code: "0003", 
-    name: "Hair Oil 200ml", 
-    img: "images/front-view-oil-made-from-green-plant.jpg", 
+    name: "Hair Oil 200ml - - (sulphur free oil)", 
+    img: "images/oil.jpeg", 
     price: 150, 
-    description: baseDescription,
+    description: normalhairoil,
     delivery : "Free Shipping",
   }
 ];
