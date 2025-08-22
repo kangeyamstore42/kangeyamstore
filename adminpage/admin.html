@@ -3,14 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>Orders List</title>
+
+  <!-- JsBarcode Library -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; vertical-align: middle; }
     th { background: #f4f4f4; }
     .hidden { display: none; }
     .btn { padding: 6px 10px; border: none; background: #1976d2; color: white; cursor: pointer; border-radius: 4px; }
     .btn:hover { background: #0d47a1; }
+
+    .btn-whatsapp {
+      background: #25D366;
+      margin-left: 5px;
+    }
+    .btn-whatsapp:hover {
+      background: #128C7E;
+    }
 
     /* Spinner */
     #spinner {
@@ -37,6 +49,8 @@
 
     .filter-container { margin-bottom: 15px; }
     .filter-container label { font-weight: bold; margin-right: 10px; }
+
+    td svg { display: block; margin-bottom: 5px; }
   </style>
 </head>
 <body>
@@ -56,7 +70,8 @@
       <tr>
         <th>Order ID</th>
         <th>Name</th>
-        <th>contact_number</th>
+        <th>Contact</th>
+        <th>Tracking Number</th>
         <th>Amount</th>
         <th>Status</th>
         <th>Date</th>
@@ -69,10 +84,15 @@
   <!-- Order Detail -->
   <div id="orderDetail" class="hidden">
     <h3>Order Details</h3>
+    <svg id="detailBarcode"></svg> <!-- Barcode only here -->
     <p><strong>Order ID:</strong> <span id="detailOrderId"></span></p>
     <p><strong>Name:</strong> <span id="detailName"></span></p>
-    <p><strong>contact_number:</strong> <span id="detailEmail"></span></p>
-    <p><strong>Contact:</strong> <span id="detailContact"></span></p>
+    <p>
+      <strong>Contact:</strong> 
+      <span id="detailContact"></span>
+      <button id="whatsappBtn" class="btn btn-whatsapp hidden">WhatsApp</button>
+    </p>
+    <p><strong>Tracking Number:</strong> <span id="detailTracking"></span></p>
     <p><strong>Address:</strong> <span id="detailAddress"></span></p>
     <p><strong>Product:</strong> <span id="detailProduct"></span></p>
 
@@ -104,11 +124,11 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbzrI5r5trgHOMlYty4HllY0KiCT0G8m0Y0aNhrEvY13uTLyqLk6EYHzWT7m4ACfe33q1w/exec"; 
     let currentOrderId = null;
     let allOrders = [];
+    let currentOrder = null;
 
     function showSpinner() { document.getElementById("spinner").style.display = "flex"; }
     function hideSpinner() { document.getElementById("spinner").style.display = "none"; }
 
-    // Format to DD/MM/YYYY for display
     function formatToDDMMYYYY(dateTimeString) {
       if (!dateTimeString) return "";
       const d = new Date(dateTimeString);
@@ -119,15 +139,13 @@
       return `${day}/${month}/${year}`;
     }
 
-    // Extract YYYY-MM-DD for comparison
     function formatToYYYYMMDD(dateTimeString) {
       if (!dateTimeString) return "";
       const d = new Date(dateTimeString);
       if (isNaN(d)) return "";
-      return d.toISOString().split("T")[0]; // YYYY-MM-DD
+      return d.toISOString().split("T")[0];
     }
 
-    // Convert DD/MM/YYYY to YYYY-MM-DD (if sheet uses Indian format)
     function parseDDMMYYYY(dateStr) {
       const parts = dateStr.split("/");
       if (parts.length !== 3) return "";
@@ -135,7 +153,6 @@
       return `${year}-${month.padStart(2,"0")}-${day.padStart(2,"0")}`;
     }
 
-    // Load all orders
     async function loadOrders() {
       showSpinner();
       try {
@@ -149,12 +166,11 @@
       }
     }
 
-    // Render table
     function renderTable(data) {
       const tbody = document.querySelector("#ordersTable tbody");
       tbody.innerHTML = "";
       if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:red;">No records found</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:red;">No records found</td></tr>`;
         return;
       }
       data.forEach(order => {
@@ -163,6 +179,7 @@
           <td>${order.order_id}</td>
           <td>${order.name}</td>
           <td>${order.contact_number}</td>
+          <td>${order.tracking_number || ""}</td>
           <td>${order.amount}</td>
           <td>${order.status}</td>
           <td>${formatToDDMMYYYY(order.dateAndTime)}</td>
@@ -172,27 +189,19 @@
       });
     }
 
-    // Filter by selected date
     function filterByDate() {
-      const selectedDate = document.getElementById("dateFilter").value; // YYYY-MM-DD
-      if (!selectedDate) {
-        renderTable(allOrders);
-        return;
-      }
+      const selectedDate = document.getElementById("dateFilter").value;
+      if (!selectedDate) { renderTable(allOrders); return; }
 
       const filtered = allOrders.filter(order => {
         let orderDate = "";
-
         if (order.dateAndTime.includes("/")) {
-          // stored as DD/MM/YYYY
           orderDate = parseDDMMYYYY(order.dateAndTime);
         } else {
-          // stored as ISO (with or without time)
           orderDate = formatToYYYYMMDD(order.dateAndTime);
         }
         return orderDate === selectedDate;
       });
-
       renderTable(filtered);
     }
 
@@ -201,23 +210,44 @@
       renderTable(allOrders);
     }
 
-    // View single order
     async function viewOrder(orderId) {
       showSpinner();
       try {
         const res = await fetch(`${API_URL}?action=getOrder&order_id=${orderId}`);
         const order = await res.json();
 
+        currentOrder = order;
         currentOrderId = order.order_id;
+
         document.getElementById("detailOrderId").innerText = order.order_id;
         document.getElementById("detailName").innerText = order.name;
-        document.getElementById("detailEmail").innerText = order.email;
         document.getElementById("detailContact").innerText = order.contact_number;
+        document.getElementById("detailTracking").innerText = order.tracking_number || "";
         document.getElementById("detailAddress").innerText = order.address;
         document.getElementById("detailProduct").innerText = order.product_details;
 
         document.getElementById("statusDropdown").value = order.status || "Pending";
         document.getElementById("amountDropdown").value = order.amount || "COD";
+
+        // Generate barcode only in detail section
+        JsBarcode("#detailBarcode", order.order_id, {
+          format: "CODE128",
+          width: 2,
+          height: 50,
+          displayValue: true
+        });
+
+        // Show WhatsApp button only if tracking number is available
+        const whatsappBtn = document.getElementById("whatsappBtn");
+        if (order.tracking_number && order.contact_number) {
+          whatsappBtn.classList.remove("hidden");
+          whatsappBtn.onclick = () => {
+            const message = `Hello ${order.name},%0AHere is your tracking number: *${order.tracking_number}*%0AYou can track it here: https://www.frx.co.in/Tracking.aspx?TrackingNo=${order.tracking_number}`;
+            window.open(`https://wa.me/91${order.contact_number}?text=${message}`, "_blank");
+          };
+        } else {
+          whatsappBtn.classList.add("hidden");
+        }
 
         document.getElementById("orderDetail").classList.remove("hidden");
       } catch (err) {
