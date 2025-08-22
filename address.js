@@ -91,7 +91,17 @@ const fullAddress = [saveObjec.address, saveObjec.city, saveObjec.state, saveObj
   .filter(Boolean) // remove empty strings
   .join(",\n");
 
-  const dateAndTime = new Date().toLocaleString();
+// ✅ Build DD/MM/YYYY manually
+function getDateOnly() {
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  return `${dd}/${mm}/${yyyy}`;
+}
+
+// Use it:
+const dateAndTime = getDateOnly();       // "22/08/2025"
 
   const now = new Date();
   const day = String(now.getDate()).padStart(2, "0");
