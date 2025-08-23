@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbwL-121N0Zoyot30Y3dSrZXYCSPaUBcGVC-XvFjJVWpshcXLxcR07KzunK7nELUEXMJWA/exec"; // replace with your script URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbw0sLsthrPL5dcL2odFtxr2k_88NO3qPL-Q__T_oRVloeQan7txrMeGlgqh83pxFhuA/exec"; // replace with your script URL
 
 const fetchBtn = document.getElementById("fetchOrder");
 const cancelBtn = document.getElementById("cancelOrderBtn");

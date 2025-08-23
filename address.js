@@ -26,7 +26,7 @@ document.getElementById("cartTotal").innerText = `Total: ₹${total.toFixed(2)}`
 // =======================
 // Form Handling
 // =======================
-const scriptURL = "https://script.google.com/macros/s/AKfycbxNuqJkL9i7UR7rIKfDDGMNoFG4j8_sSgzJ58CAzakEn1UD7g8RKXuzXRIe8TNn2xTp6g/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxSAs8c3u7o6_aylNdhNM1O7deSLSp4yffyFDHD3HWD9bIsGQnnxPu_v2n87dhrm_ee/exec";
 const form = document.getElementById("submit-to-google-sheet");
 
 // Load saved form data from localStorage
