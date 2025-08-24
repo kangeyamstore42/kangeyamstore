@@ -99,7 +99,7 @@
     <label>Status:
       <select id="statusDropdown">
         <option>Pending</option>
-        <option>Processing</option>
+        <option>Booked</option>
         <option>Shipped</option>
         <option>Delivered</option>
         <option>Cancelled</option>
@@ -242,7 +242,7 @@
         if (order.tracking_number && order.contact_number) {
           whatsappBtn.classList.remove("hidden");
           whatsappBtn.onclick = () => {
-            const message = `Hello ${order.name},%0AHere is your tracking number: *${order.tracking_number}*%0AYou can track it here: https://www.frx.co.in/Tracking.aspx?TrackingNo=${order.tracking_number}`;
+            const message = `Hello ${order.name},%0AHere is your tracking number: *${order.tracking_number}*%0AYou can track it here: https://franchexpress.com/courier-tracking/`;
             window.open(`https://wa.me/91${order.contact_number}?text=${message}`, "_blank");
           };
         } else {
