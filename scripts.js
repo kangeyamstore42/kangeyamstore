@@ -41,6 +41,7 @@ const products = [
 
 
 
+document.getElementById("coming-soon").style.display = "block";
 
 
 

@@ -280,3 +280,39 @@ header .cart-icon {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.coming-soon {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.coming-soon h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #d32f2f;
+  text-transform: uppercase;
+}
+
+
+
