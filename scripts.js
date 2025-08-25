@@ -75,8 +75,8 @@ function loadProducts() {
     // Set inner HTML
     card.innerHTML = `
       <img src="${product.img}" alt="${product.name}" />
-      <div>${product.name}</div>
-      <div>₹${product.price}</div>
+      <div>${product.name}</div><br>
+      <strong><div>₹${product.price}</div></strong>
       <button>Add to Cart</button>
     `;
 

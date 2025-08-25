@@ -1,12 +1,12 @@
 // Sample product data (don't change code, only images)
 const products = [
-  { id: 301, code: "3001", name: "pickle", img: "images/oil.jpeg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
+  { id: 301, code: "3001", name: "Chicken Pickle - 500 gm", img: "images/oil.jpeg", price: 250, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
     delivery : "Free Shipping",
    },
-  { id: 302, code: "3002", name: "pickle", img: "images/oil.jpeg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
+  { id: 302, code: "3002", name: "Chicken Pickle - Combo - 500 gm", img: "images/oil.jpeg", price: 470, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
     delivery : "Free Shipping",
    },
-  { id: 303, code: "3003", name: "pickle", img: "images/oil.jpeg", price: 200, description: "Our Homemade Chicken Pickle is a delicious blend of tender chicken pieces marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
+  { id: 303, code: "3003", name: "Amla Pickle - 100 gm", img: "images/oil.jpeg", price: 100, description: "Our Homemade Amla Pickle is a delicious blend of tender Amala marinated and slow-cooked with a traditional mix of spices. Made in small batches with love and care, this pickle carries the perfect balance of tangy, spicy, and aromatic flavors. Free from preservatives and packed with authentic taste, it is the ideal side dish to elevate every meal.",
     delivery : "Free Shipping",
    },
 ];
@@ -26,8 +26,8 @@ function loadProducts() {
 
     card.innerHTML = `
       <img src="${product.img}" alt="${product.name}" />
-      <div>${product.name}</div>
-      <div>₹${product.price}</div>
+      <div>${product.name}</div><br>
+      <strong><div>₹${product.price}</div></strong>
       <button type="button">Add to Cart</button>
     `;
 
