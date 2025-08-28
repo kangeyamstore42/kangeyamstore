@@ -51,70 +51,105 @@
     .filter-container label { font-weight: bold; margin-right: 10px; }
 
     td svg { display: block; margin-bottom: 5px; }
+
+    /* Login Page */
+    #loginPage {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    #loginPage h2 { margin-bottom: 15px; text-align: center; }
+    #loginPage input {
+      width: 100%; padding: 10px; margin: 8px 0;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    #loginPage button { width: 100%; }
   </style>
 </head>
 <body>
 
-  <h2>Orders</h2>
+  <!-- Login Page -->
+  <div id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button class="btn" onclick="login()">Login</button>
+    <p id="loginError" style="color:red; display:none; text-align:center;">Invalid username or password!</p>
+  </div>
 
-  <!-- Date Filter -->
-  <div class="filter-container">
-    <label for="dateFilter">Filter by Date:</label>
-    <input type="date" id="dateFilter" onchange="filterByDate()" />
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden">
+    <h2>Orders</h2>
+
+    <!-- Date Filter -->
+     <div class="filter-container">
+    <label for="dateFilter">Date:</label>
+    <input type="date" id="dateFilter" onchange="applyFilters()" />
+
+    <label for="orderIdFilter">Order ID:</label>
+    <input type="text" id="orderIdFilter" placeholder="Enter Order ID" oninput="applyFilters()" />
+
+    <label for="contactFilter">Contact:</label>
+    <input type="text" id="contactFilter" placeholder="Enter Contact Number" oninput="applyFilters()" />
+
     <button class="btn" onclick="clearFilter()">Clear</button>
   </div>
 
-  <!-- Orders Table -->
-  <table id="ordersTable">
-    <thead>
-      <tr>
-        <th>Order ID</th>
-        <th>Name</th>
-        <th>Contact</th>
-        <th>Tracking Number</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+    <!-- Orders Table -->
+    <table id="ordersTable">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Tracking Number</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-  <!-- Order Detail -->
-  <div id="orderDetail" class="hidden">
-    <h3>Order Details</h3>
-    <svg id="detailBarcode"></svg> <!-- Barcode only here -->
-    <p><strong>Order ID:</strong> <span id="detailOrderId"></span></p>
-    <p><strong>Name:</strong> <span id="detailName"></span></p>
-    <p>
-      <strong>Contact:</strong> 
-      <span id="detailContact"></span>
-      <button id="whatsappBtn" class="btn btn-whatsapp hidden">WhatsApp</button>
-    </p>
-    <p><strong>Tracking Number:</strong> <span id="detailTracking"></span></p>
-    <p><strong>Address:</strong> <span id="detailAddress"></span></p>
-    <p><strong>Product:</strong> <span id="detailProduct"></span></p>
+    <!-- Order Detail -->
+    <div id="orderDetail" class="hidden">
+      <h3>Order Details</h3>
+      <svg id="detailBarcode"></svg> <!-- Barcode only here -->
+      <p><strong>Order ID:</strong> <span id="detailOrderId"></span></p>
+      <p><strong>Name:</strong> <span id="detailName"></span></p>
+      <p>
+        <strong>Contact:</strong> 
+        <span id="detailContact"></span>
+        <button id="whatsappBtn" class="btn btn-whatsapp hidden">WhatsApp</button>
+      </p>
+      <p><strong>Tracking Number:</strong> <span id="detailTracking"></span></p>
+      <p><strong>Address:</strong> <span id="detailAddress"></span></p>
+      <p><strong>Product:</strong> <span id="detailProduct"></span></p>
 
-    <label>Status:
-      <select id="statusDropdown">
-        <option>Pending</option>
-        <option>Booked</option>
-        <option>Shipped</option>
-        <option>Delivered</option>
-        <option>Cancelled</option>
-      </select>
-    </label>
-    <br><br>
-    <label>Payment:
-      <select id="amountDropdown">
-        <option>COD</option>
-        <option>Prepaid</option>
-      </select>
-    </label>
-    <br><br>
-    <button class="btn" onclick="saveOrder()">Save</button>
-    <button class="btn" style="background:#777;" onclick="hideDetail()">Close</button>
+      <label>Status:
+        <select id="statusDropdown">
+          <option>Pending</option>
+          <option>Booked</option>
+          <option>Shipped</option>
+          <option>Delivered</option>
+          <option>Cancelled</option>
+        </select>
+      </label>
+      <br><br>
+      <label>Payment:
+        <select id="amountDropdown">
+          <option>COD</option>
+          <option>Prepaid</option>
+        </select>
+      </label>
+      <br><br>
+      <button class="btn" onclick="saveOrder()">Save</button>
+      <button class="btn" style="background:#777;" onclick="hideDetail()">Close</button>
+    </div>
   </div>
 
   <!-- Spinner -->
@@ -125,6 +160,33 @@
     let currentOrderId = null;
     let allOrders = [];
     let currentOrder = null;
+
+    const DEFAULT_USER = "kangeyamstore42";
+    const DEFAULT_PASS = "jalakandeshwA#3";
+
+    function login() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+
+  if (user === DEFAULT_USER && pass === DEFAULT_PASS) {
+    sessionStorage.setItem("isLoggedIn", "true"); // ✅ sessionStorage
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+    loadOrders();
+  } else {
+    document.getElementById("loginError").style.display = "block";
+  }
+}
+
+
+window.onload = function () {
+  if (sessionStorage.getItem("isLoggedIn") === "true") {
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+    loadOrders();
+  }
+};
+
 
     function showSpinner() { document.getElementById("spinner").style.display = "flex"; }
     function hideSpinner() { document.getElementById("spinner").style.display = "none"; }
@@ -229,7 +291,6 @@
         document.getElementById("statusDropdown").value = order.status || "Pending";
         document.getElementById("amountDropdown").value = order.amount || "COD";
 
-        // Generate barcode only in detail section
         JsBarcode("#detailBarcode", order.order_id, {
           format: "CODE128",
           width: 2,
@@ -237,7 +298,6 @@
           displayValue: true
         });
 
-        // Show WhatsApp button only if tracking number is available
         const whatsappBtn = document.getElementById("whatsappBtn");
         if (order.tracking_number && order.contact_number) {
           whatsappBtn.classList.remove("hidden");
@@ -290,8 +350,49 @@
       document.getElementById("orderDetail").classList.add("hidden");
     }
 
-    // Load orders on page load
-    loadOrders();
+
+    function applyFilters() {
+      const selectedDate = document.getElementById("dateFilter").value;
+      const orderIdInput = document.getElementById("orderIdFilter").value.trim().toLowerCase();
+      const contactInput = document.getElementById("contactFilter").value.trim().toLowerCase();
+
+      let filtered = allOrders;
+
+      if (selectedDate) {
+        filtered = filtered.filter(order => {
+          let orderDate = "";
+          if (order.dateAndTime.includes("/")) {
+            orderDate = parseDDMMYYYY(order.dateAndTime);
+          } else {
+            orderDate = formatToYYYYMMDD(order.dateAndTime);
+          }
+          return orderDate === selectedDate;
+        });
+      }
+
+      if (orderIdInput) {
+        filtered = filtered.filter(order =>
+          order.order_id.toLowerCase().includes(orderIdInput)
+        );
+      }
+
+      if (contactInput) {
+    filtered = filtered.filter(order =>
+      String(order.contact_number).toLowerCase().includes(contactInput)
+    );
+  }
+
+      renderTable(filtered);
+    }
+
+    function clearFilter() {
+      document.getElementById("dateFilter").value = "";
+      document.getElementById("orderIdFilter").value = "";
+      document.getElementById("contactFilter").value = "";
+      renderTable(allOrders);
+    }
+
+
   </script>
 </body>
 </html>

@@ -30,30 +30,25 @@
     <h1>Your Cart</h1>
 
     <section class="cart-section">
-      <table id="cart-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-label="Name">Hair Oil 250ml</td>
-            <td data-label="Code">0001</td>
-            <td data-label="Price">₹130</td>
-            <td data-label="Qty">2</td>
-            <td data-label="Total">₹260</td>
-            <td data-label="Action"><button>Remove</button></td>
-          </tr>
-          <!-- More rows as needed -->
-        </tbody>
-      </table>
-    </section>
+  <!-- Desktop Table -->
+  <table id="cart-table" class="desktop-view">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Mobile Cards -->
+  <div id="cart-cards" class="mobile-view"></div>
+</section>
 
     <div id="total-price"></div>
 

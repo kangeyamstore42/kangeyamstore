@@ -12,10 +12,10 @@ const products = [
     price: 150, 
     description: baseDescription,
     delivery : "Free Shipping",
-   /* images: [
-      "images/ecofriendly-beauty-product.jpg", 
+    images: [
+      "images/oil.jpeg", 
       "images/vecteezy_close-up-of-sweet-and-savory-peanut-brittle-candy_68019123.jpg", 
-    ]*/
+    ]
   },
   { 
     id: 2, 

@@ -111,3 +111,26 @@ function goBack() { window.history.back(); }
 function goHome() { window.location.href = "index.html"; }
 function goContact() { alert("Contact page coming soon!"); }
 function goCart() { window.location.href = "cart.html"; }
+
+
+
+
+
+// Buy Now function
+function buyNow() {
+  if (!currentProduct) return;
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existing = cart.find(item => item.id === currentProduct.id);
+
+  if (existing) {
+    existing.qty += currentQty;
+  } else {
+    cart.push({ ...currentProduct, qty: currentQty });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  // Redirect directly to address page
+  window.location.href = "address.html"; 
+}

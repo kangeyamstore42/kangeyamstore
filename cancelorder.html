@@ -59,46 +59,17 @@
 
   </div>
 
-  <section class="black-text-section">
-    <div class="footer-container">
-      <div class="footer-logo-desc">
-        <img src="../images/—Pngtree—relaxed bull logo design art_15604941.png" alt="Logo" class="footer-logo" />
-        <p class="footer-desc">
-          Explore our unique platform offering premium oils, tasty snacks, and stylish clothing — all carefully selected for quality and your lifestyle.
-        </p>
-      </div>
+  <div id="footer-placeholder"></div>
 
-      <!--<div class="footer-contact">
-        <h4>Let Us Help</h4>
-        <ul>
-          <p><a href="getorderdetails/getorderdetails.html" style="color: white;">Order Details</a></p>
-          <p><a href="cancelorder.html" style="color: white;">Cancel Order</a></p>
-        </ul>
-      </div><br><br>-->
-      <div class="footer-support">
-        <h4>For Support</h4>
-        <ul>
-          <li>📞 (+91) 8124763694</li>
-          <li>📞 (+91) 9585608207</li>
-          <li>✉️ <a href="mailto:kangeyamstore42@gmail.com" style="color: white;">kangeyamstore42@gmail.com</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-contact">
-        <h4>Reach Us</h4>
-        <p>
-          KANGAYAM STORE 42,<br>
-          265 BHARATHIYAR STREET,<br>
-          TIRUPPUR ROAD,<br>
-          KANGAYAM - 638 701.
-        </p>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      © 2025 Copy Rights. All Rights Received By Kangeyam Store 42.
-    </div>
-  </section>
+  
+   <script>
+    fetch('../footerpage/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      })
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
 
   <script src="cancelorder.js"></script>
 </body>

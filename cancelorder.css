@@ -325,3 +325,21 @@ pre {
     margin-bottom: 12px; /* Space between items */
   }
 }
+
+
+/* Footer wrapper */
+#footer-placeholder {
+  margin-top: auto;          /* pushes footer to bottom */
+  width: 100%;               /* full width */
+}
+
+/* Style inside footer.html */
+footer {
+  width: 100%;               /* full width */
+  background-color: #000;     /* black footer */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+
+}

@@ -5,15 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Order Lookup</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
+
+
+    /* Prevent horizontal scroll on mobile */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* stop left-right move */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f5f7fa;
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
       min-height: 100vh;
+}
+
+    /* Header Bar */
+    header {
+      width: 100%;
+      background-color: #000; /* black header */
+      padding: 15px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: sticky; /* stays visible */
+      top: 0;
+      z-index: 1000;
+    }
+
+    header a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    header a:hover {
+      text-decoration: underline;
     }
 
     .container {
@@ -39,6 +67,8 @@
       font-size: 1rem;
       border: 1.5px solid #ccc;
       border-radius: 6px;
+      margin: 10px 0;
+      max-width: 50%;
     }
 
     input[type="text"]:focus {
@@ -93,19 +123,101 @@
       font-weight: bold;
       margin-top: 15px;
     }
+ /* 📱 Small devices (mobiles) */
+@media screen and (max-width: 600px) {
+  header {
+    padding: 12px 5px;
+  }
+
+  header a {
+    font-size: 1.3rem;
+  }
+
+  .container {
+    margin: 20px 10px;
+    padding: 20px;
+    max-width: 100%; 
+    box-sizing: border-box;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    max-width: 100%; 
+    box-sizing: border-box;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* 💻 Medium devices (tablets) */
+@media screen and (max-width: 900px) {
+  .container {
+    width: 90%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Footer wrapper */
+#footer-placeholder {
+  margin-top: auto;          /* pushes footer to bottom */
+  width: 100%;               /* full width */
+}
+
+/* Style inside footer.html */
+footer {
+  width: 100%;               /* full width */
+  background-color: #000;     /* black footer */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Order Details Lookup</h1>
+  <!-- Black Header with Home Link -->
+  <header>
+    <a href="../index.html">Home</a>
+  </header>
 
-    <label for="orderId">Enter Order ID:</label>
+  <div class="container">
+    <h1>Order Details</h1>
+
+    <label for="orderId"><b>Enter Order ID:</b></label>
     <input id="orderId" type="text" placeholder="e.g. KS1208172345" />
 
     <button onclick="lookup()">Search</button>
 
     <div id="result"></div>
   </div>
+
+   <div id="footer-placeholder"></div>
+
+  
+   <script>
+    fetch('../footerpage/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      })
+      .catch(err => console.error('Failed to load footer:', err));
+  </script>
 
   <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpZ1Ji6OqOvt3KfY3rg5dLedFCOFt4nawZNzwsjK_fScUmaWeSHX7Fm0G8Kw6QdpkH/exec";
@@ -137,12 +249,29 @@
         for (let key in data) {
           let value = data[key];
 
-          // Skip empty cancel_reason & cancel_date
           if ((key === "cancel_reason" || key === "cancel_date") && (!value || String(value).trim() === "")) {
             continue;
           }
 
-          // Format product_details specially
+          if (key === "dateAndTime") {
+            table += `
+              <tr>
+                <th>Ordered Date</th>
+                <td>${formatDateTime(value)}</td>
+              </tr>`;
+            continue;
+          }
+
+          if (key === "tracking_number") {
+            const trackingUrl = `https://franchexpress.com/courier-tracking/?num=${encodeURIComponent(value)}`;
+            table += `
+              <tr>
+                <th>Courier Tracking Number</th>
+                <td><a href="${trackingUrl}" target="_blank">${escapeHtml(value)}</a></td>
+              </tr>`;
+            continue;
+          }
+
           if (key === "product_details") {
             table += `
               <tr>
@@ -167,26 +296,17 @@
       });
   }
 
-  // Format header names to be human readable
   function prettyLabel(key) {
-    return key
-      .replace(/_/g, " ")          // replace underscores
-      .replace(/\b\w/g, l => l.toUpperCase()); // capitalize words
+    return key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
   }
 
-  // Special product details formatting
   function formatProductDetails(details) {
     if (!details) return "";
-
-    // Split products if multiple
     const items = details.split(/(?=Product Code:)/);
-
     let html = "<ul style='padding-left:16px;'>";
     items.forEach(item => {
       const clean = item.trim();
       if (!clean) return;
-
-      // Break into parts
       html += `<li>${escapeHtml(clean)}</li>`;
     });
     html += "</ul>";
@@ -202,7 +322,21 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
-</script>
 
+  function formatDateTime(dateStr) {
+    if (!dateStr) return "";
+    const d = new Date(dateStr);
+    if (isNaN(d)) return escapeHtml(dateStr);
+    return d.toLocaleString("en-IN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+  </script>
+  
 </body>
 </html>

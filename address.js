@@ -109,8 +109,10 @@ const dateAndTime = getDateOnly();       // "22/08/2025"
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const seconds = String(now.getSeconds()).padStart(2, "0");
+  const milliseconds = String(now.getMilliseconds()).padStart(3, "0");
 
-  const orderId = `KS${day}${month}${hours}${minutes}${seconds}`;
+  const orderId = `KS${day}${month}${hours}${minutes}${seconds}${milliseconds}`;
+  
 
   try {
     const formData = new FormData();

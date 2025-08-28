@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Feedback</title>
+<style>
+body { font-family: Arial,sans-serif; background:#0f172a; color:#e5e7eb; padding:20px; }
+h1 { margin-bottom:20px; text-align:center; }
+
+form { max-width:500px; margin:auto; background:#111827; padding:20px; border-radius:12px; }
+input, textarea, select, button { width:100%; padding:10px; margin:5px 0; border-radius:8px; border:none; }
+input, textarea, select { background:#0b1220; color:#e5e7eb; border:1px solid #1f2937; }
+button { background:#22c55e; color:white; cursor:pointer; font-weight:bold; }
+
+.list { margin-top:30px; max-width:700px; margin-left:auto; margin-right:auto; }
+.item { background:#1f2937; padding:15px; border-radius:12px; margin-bottom:15px; box-shadow:0 0 10px rgba(0,0,0,0.3); }
+.meta { font-size:13px; color:#94a3b8; margin-bottom:8px; }
+.meta span { display:block; margin-bottom:4px; }
+.stars { letter-spacing:1px; color:#facc15; }
+.feedback { margin-top:8px; font-size:14px; line-height:1.4; color:#e5e7eb; }
+</style>
+</head>
+<body>
+
+<h1>Customer Feedback</h1>
+
+<form id="feedbackForm">
+  <input id="name" type="text" placeholder="Your name" required>
+  <input id="city" type="text" placeholder="Your city" required>
+  <select id="rating" required>
+    <option value="">Select rating</option>
+    <option value="5">★★★★★ (5)</option>
+    <option value="4">★★★★☆ (4)</option>
+    <option value="3">★★★☆☆ (3)</option>
+    <option value="2">★★☆☆☆ (2)</option>
+    <option value="1">★☆☆☆☆ (1)</option>
+  </select>
+  <textarea id="feedback" placeholder="Write feedback" required></textarea>
+  <button type="submit">Submit Feedback</button>
+  <span id="status"></span>
+</form>
+
+<div class="list" id="list"></div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwpBy1o2BywC8F-CxVELKyuJMz8tO6f3KV3iKYbIATrJQTBm5ojmIrU906GAxt3gO5G/exec"; // Replace with your deployed Web App URL
+const form = document.getElementById('feedbackForm');
+const list = document.getElementById('list');
+const statusEl = document.getElementById('status');
+
+function escapeHtml(s){ const div=document.createElement('div'); div.textContent=s||''; return div.innerHTML; }
+function stars(n){ n=Number(n)||0; return '★'.repeat(n)+'☆'.repeat(5-n); }
+
+function card(item){
+  const div = document.createElement('div'); 
+  div.className='item';
+  div.innerHTML = `
+    <div class="meta">
+      <span><strong>Date:</strong> ${new Date(item.timestamp).toLocaleString()}</span>
+      <span><strong>Name:</strong> ${escapeHtml(item.name)}</span>
+      <span><strong>City:</strong> ${escapeHtml(item.city)}</span>
+      <span class="stars"><strong>Rating:</strong> ${stars(item.rating)}</span>
+    </div>
+    <div class="feedback"><strong>Feedback:</strong> ${escapeHtml(item.feedback)}</div>
+  `;
+  return div;
+}
+
+function renderList(items){ 
+  list.innerHTML=''; 
+  items.reverse().forEach(it=>list.appendChild(card(it))); // latest first
+}
+
+function prependItem(item){ 
+  list.prepend(card(item)); 
+}
+
+form.addEventListener('submit', async e=>{
+  e.preventDefault();
+  statusEl.textContent='Submitting...';
+
+  const payload = new URLSearchParams({
+    name: document.getElementById('name').value.trim(),
+    city: document.getElementById('city').value.trim(),
+    rating: document.getElementById('rating').value,
+    feedback: document.getElementById('feedback').value.trim()
+  });
+
+  try {
+    const res = await fetch(WEB_APP_URL, { method:'POST', body: payload });
+    const data = await res.json();
+    prependItem({
+      name: payload.get('name'),
+      city: payload.get('city'),
+      rating: payload.get('rating'),
+      feedback: payload.get('feedback'),
+      timestamp: new Date().toISOString()
+    });
+    form.reset();
+    statusEl.textContent='Feedback submitted!';
+  } catch(err){
+    statusEl.textContent='Error: '+err.message;
+  }
+});
+
+// Load all feedback on page load
+(async ()=>{
+  try {
+    const res = await fetch(WEB_APP_URL);
+    const data = await res.json();
+    renderList(data);
+  } catch(err){
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

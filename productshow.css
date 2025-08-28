@@ -322,12 +322,34 @@ header {
   .product-description {
     font-size: 0.95rem;
   }
-  .add-cart-btn {
-    font-size: 1.1rem;
-    padding: 12px 0;
-  }
-
+  .add-cart-btn,
+.buy-now-btn {
+  width: 100%;
+  margin: 8px auto;
+  display: flex;              /* use flex */
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  max-height: 50px;
+  text-align: center;         /* ensures multiline is centered */
+}
 }
 
+.buy-now-btn {
+  background: #000000;
+  color: white;
+  font-size: 1.3rem;
+  padding: 15px 0;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
 
+.buy-now-btn:hover {
+    background: #000000;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.7);
+}
 
