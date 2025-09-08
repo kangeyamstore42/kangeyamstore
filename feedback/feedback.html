@@ -13,6 +13,12 @@ input, textarea, select, button { width:100%; padding:10px; margin:5px 0; border
 input, textarea, select { background:#0b1220; color:#e5e7eb; border:1px solid #1f2937; }
 button { background:#22c55e; color:white; cursor:pointer; font-weight:bold; }
 
+#status { display:block; text-align:center; margin-top:10px; font-weight:bold; }
+
+#spinner { display:none; text-align:center; margin:10px 0; }
+#spinner svg { width:40px; height:40px; }
+#spinner div { color:#22c55e; margin-top:5px; }
+
 .list { margin-top:30px; max-width:700px; margin-left:auto; margin-right:auto; }
 .item { background:#1f2937; padding:15px; border-radius:12px; margin-bottom:15px; box-shadow:0 0 10px rgba(0,0,0,0.3); }
 .meta { font-size:13px; color:#94a3b8; margin-bottom:8px; }
@@ -39,6 +45,14 @@ button { background:#22c55e; color:white; cursor:pointer; font-weight:bold; }
   <textarea id="feedback" placeholder="Write feedback" required></textarea>
   <button type="submit">Submit Feedback</button>
   <span id="status"></span>
+  <div id="spinner">
+    <svg viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="45" stroke="#22c55e" stroke-width="10" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="75">
+        <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <div>Loading...</div>
+  </div>
 </form>
 
 <div class="list" id="list"></div>
@@ -48,6 +62,7 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwpBy1o2BywC8F-CxVE
 const form = document.getElementById('feedbackForm');
 const list = document.getElementById('list');
 const statusEl = document.getElementById('status');
+const spinner = document.getElementById('spinner');
 
 function escapeHtml(s){ const div=document.createElement('div'); div.textContent=s||''; return div.innerHTML; }
 function stars(n){ n=Number(n)||0; return '★'.repeat(n)+'☆'.repeat(5-n); }
@@ -78,7 +93,8 @@ function prependItem(item){
 
 form.addEventListener('submit', async e=>{
   e.preventDefault();
-  statusEl.textContent='Submitting...';
+  statusEl.textContent='';
+  spinner.style.display='block';
 
   const payload = new URLSearchParams({
     name: document.getElementById('name').value.trim(),
@@ -98,22 +114,28 @@ form.addEventListener('submit', async e=>{
       timestamp: new Date().toISOString()
     });
     form.reset();
-    statusEl.textContent='Feedback submitted!';
+    statusEl.textContent='Thank you for your feedback!';
   } catch(err){
     statusEl.textContent='Error: '+err.message;
+  } finally {
+    spinner.style.display='none';
   }
 });
 
 // Load all feedback on page load
 (async ()=>{
+  spinner.style.display='block';
   try {
     const res = await fetch(WEB_APP_URL);
     const data = await res.json();
     renderList(data);
   } catch(err){
     console.error(err);
+  } finally {
+    spinner.style.display='none';
   }
 })();
 </script>
+
 </body>
 </html>

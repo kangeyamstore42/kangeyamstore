@@ -85,18 +85,18 @@
     <h2>Orders</h2>
 
     <!-- Date Filter -->
-     <div class="filter-container">
-    <label for="dateFilter">Date:</label>
-    <input type="date" id="dateFilter" onchange="applyFilters()" />
+    <div class="filter-container">
+      <label for="dateFilter">Date:</label>
+      <input type="date" id="dateFilter" onchange="applyFilters()" />
 
-    <label for="orderIdFilter">Order ID:</label>
-    <input type="text" id="orderIdFilter" placeholder="Enter Order ID" oninput="applyFilters()" />
+      <label for="orderIdFilter">Order ID:</label>
+      <input type="text" id="orderIdFilter" placeholder="Enter Order ID" oninput="applyFilters()" />
 
-    <label for="contactFilter">Contact:</label>
-    <input type="text" id="contactFilter" placeholder="Enter Contact Number" oninput="applyFilters()" />
+      <label for="contactFilter">Contact:</label>
+      <input type="text" id="contactFilter" placeholder="Enter Contact Number" oninput="applyFilters()" />
 
-    <button class="btn" onclick="clearFilter()">Clear</button>
-  </div>
+      <button class="btn" onclick="clearFilter()">Clear</button>
+    </div>
 
     <!-- Orders Table -->
     <table id="ordersTable">
@@ -147,6 +147,15 @@
         </select>
       </label>
       <br><br>
+
+      <!-- WhatsApp Message Box -->
+      <div id="whatsappMessageContainer" class="hidden" style="margin-top:10px;">
+        <label for="whatsappMessage">WhatsApp Message:</label><br>
+        <textarea id="whatsappMessage" rows="4" style="width:100%; padding:5px;" readonly></textarea>
+        <button class="btn" onclick="copyWhatsAppMessage()" style="margin-top:5px;">Copy Message</button>
+      </div>
+
+      <br>
       <button class="btn" onclick="saveOrder()">Save</button>
       <button class="btn" style="background:#777;" onclick="hideDetail()">Close</button>
     </div>
@@ -165,28 +174,26 @@
     const DEFAULT_PASS = "jalakandeshwA#3";
 
     function login() {
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-  if (user === DEFAULT_USER && pass === DEFAULT_PASS) {
-    sessionStorage.setItem("isLoggedIn", "true"); // ✅ sessionStorage
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
-    loadOrders();
-  } else {
-    document.getElementById("loginError").style.display = "block";
-  }
-}
+      if (user === DEFAULT_USER && pass === DEFAULT_PASS) {
+        sessionStorage.setItem("isLoggedIn", "true");
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+        loadOrders();
+      } else {
+        document.getElementById("loginError").style.display = "block";
+      }
+    }
 
-
-window.onload = function () {
-  if (sessionStorage.getItem("isLoggedIn") === "true") {
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
-    loadOrders();
-  }
-};
-
+    window.onload = function () {
+      if (sessionStorage.getItem("isLoggedIn") === "true") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+        loadOrders();
+      }
+    };
 
     function showSpinner() { document.getElementById("spinner").style.display = "flex"; }
     function hideSpinner() { document.getElementById("spinner").style.display = "none"; }
@@ -251,24 +258,44 @@ window.onload = function () {
       });
     }
 
-    function filterByDate() {
+    function applyFilters() {
       const selectedDate = document.getElementById("dateFilter").value;
-      if (!selectedDate) { renderTable(allOrders); return; }
+      const orderIdInput = document.getElementById("orderIdFilter").value.trim().toLowerCase();
+      const contactInput = document.getElementById("contactFilter").value.trim().toLowerCase();
 
-      const filtered = allOrders.filter(order => {
-        let orderDate = "";
-        if (order.dateAndTime.includes("/")) {
-          orderDate = parseDDMMYYYY(order.dateAndTime);
-        } else {
-          orderDate = formatToYYYYMMDD(order.dateAndTime);
-        }
-        return orderDate === selectedDate;
-      });
+      let filtered = allOrders;
+
+      if (selectedDate) {
+        filtered = filtered.filter(order => {
+          let orderDate = "";
+          if (order.dateAndTime.includes("/")) {
+            orderDate = parseDDMMYYYY(order.dateAndTime);
+          } else {
+            orderDate = formatToYYYYMMDD(order.dateAndTime);
+          }
+          return orderDate === selectedDate;
+        });
+      }
+
+      if (orderIdInput) {
+        filtered = filtered.filter(order =>
+          order.order_id.toLowerCase().includes(orderIdInput)
+        );
+      }
+
+      if (contactInput) {
+        filtered = filtered.filter(order =>
+          String(order.contact_number).toLowerCase().includes(contactInput)
+        );
+      }
+
       renderTable(filtered);
     }
 
     function clearFilter() {
       document.getElementById("dateFilter").value = "";
+      document.getElementById("orderIdFilter").value = "";
+      document.getElementById("contactFilter").value = "";
       renderTable(allOrders);
     }
 
@@ -298,15 +325,27 @@ window.onload = function () {
           displayValue: true
         });
 
+        // WhatsApp Button & Message Box
         const whatsappBtn = document.getElementById("whatsappBtn");
+        const messageContainer = document.getElementById("whatsappMessageContainer");
+        const messageBox = document.getElementById("whatsappMessage");
+
         if (order.tracking_number && order.contact_number) {
           whatsappBtn.classList.remove("hidden");
+          messageContainer.classList.remove("hidden");
+
+          const message = `Hello ${order.name},\nHere is your tracking number: *${order.tracking_number}*\nYou can track it here: https://franchexpress.com/courier-tracking/`;
+
+          messageBox.value = message;
+
           whatsappBtn.onclick = () => {
-            const message = `Hello ${order.name},%0AHere is your tracking number: *${order.tracking_number}*%0AYou can track it here: https://franchexpress.com/courier-tracking/`;
-            window.open(`https://wa.me/91${order.contact_number}?text=${message}`, "_blank");
+            const waMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/91${order.contact_number}?text=${waMessage}`, "_blank");
           };
         } else {
           whatsappBtn.classList.add("hidden");
+          messageContainer.classList.add("hidden");
+          messageBox.value = "";
         }
 
         document.getElementById("orderDetail").classList.remove("hidden");
@@ -350,48 +389,13 @@ window.onload = function () {
       document.getElementById("orderDetail").classList.add("hidden");
     }
 
-
-    function applyFilters() {
-      const selectedDate = document.getElementById("dateFilter").value;
-      const orderIdInput = document.getElementById("orderIdFilter").value.trim().toLowerCase();
-      const contactInput = document.getElementById("contactFilter").value.trim().toLowerCase();
-
-      let filtered = allOrders;
-
-      if (selectedDate) {
-        filtered = filtered.filter(order => {
-          let orderDate = "";
-          if (order.dateAndTime.includes("/")) {
-            orderDate = parseDDMMYYYY(order.dateAndTime);
-          } else {
-            orderDate = formatToYYYYMMDD(order.dateAndTime);
-          }
-          return orderDate === selectedDate;
-        });
-      }
-
-      if (orderIdInput) {
-        filtered = filtered.filter(order =>
-          order.order_id.toLowerCase().includes(orderIdInput)
-        );
-      }
-
-      if (contactInput) {
-    filtered = filtered.filter(order =>
-      String(order.contact_number).toLowerCase().includes(contactInput)
-    );
-  }
-
-      renderTable(filtered);
+    function copyWhatsAppMessage() {
+      const messageBox = document.getElementById("whatsappMessage");
+      messageBox.select();
+      messageBox.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      //alert("Message copied to clipboard!");
     }
-
-    function clearFilter() {
-      document.getElementById("dateFilter").value = "";
-      document.getElementById("orderIdFilter").value = "";
-      document.getElementById("contactFilter").value = "";
-      renderTable(allOrders);
-    }
-
 
   </script>
 </body>
