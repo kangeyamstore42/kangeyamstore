@@ -12,7 +12,7 @@
       img: "images/oil1.png", 
       price: 120, 
       description: baseDescription,
-      delivery : "Free Shipping",
+      delivery : "Tamil Nadu 30 rupee",
     },
     { 
       id: 2, 
@@ -21,7 +21,7 @@
       img: "images/oil2.png", 
       price: 220, 
       description: baseDescription,
-      delivery : "Free Shipping",
+      delivery : "Tamil Nadu 30 rupee",
     },
     { 
       id: 3, 
@@ -30,7 +30,7 @@
       img: "images/oil3.png", 
       price: 99, 
       description: normalhairoil,
-      delivery : "Free Shipping",
+      delivery : "Tamil Nadu 30 rupee",
     },
     { 
       id: 4, 
@@ -39,7 +39,7 @@
       img: "images/oil4.png", 
       price: 190, 
       description: normalhairoil,
-      delivery : "Free Shipping",
+      delivery : "Tamil Nadu 30 rupee",
     },
     { 
       id: 5, 
@@ -48,7 +48,7 @@
       img: "images/oil5.png", 
       price: 200, 
       description: combopack,
-      delivery : "Free Shipping",
+      delivery : "Tamil Nadu 30 rupee",
     }
   ];
 
